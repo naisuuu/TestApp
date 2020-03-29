@@ -14,14 +14,14 @@
         android:layout_margin="15dp"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        />
+        android:autofillHints="" />
     <EditText
         android:id="@+id/ETpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="Password"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         />
     <Button
         android:id="@+id/btnSignUp"
