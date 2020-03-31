@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
                     NEEDS TO DIRECT BACK TO MAIN ACTIVITY
                     THEN ONLY VALIDATE UNDER LOGIN ACTIVITY
-                    THEREFORE LOGGIN INTO USER ACTIVITY
+                    THEREFORE LOGIN INTO USER ACTIVITY
 
                     */
                 } else {
