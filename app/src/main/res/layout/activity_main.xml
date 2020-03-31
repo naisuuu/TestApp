@@ -13,6 +13,7 @@
         android:layout_width="386dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
+        android:gravity="center_horizontal"
         android:text="@string/create_account"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="24sp" />
@@ -46,7 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="@string/already_have_an_account_sign_in_here"
-        android:textSize="20sp" />
+        android:textColor="#000000"
+        android:textSize="15sp" />
 
 
 
