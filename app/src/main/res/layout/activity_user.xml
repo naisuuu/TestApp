@@ -16,14 +16,16 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Welcome!"
+        android:text=""
         android:textSize="40sp" />
 
-    <Button
+    <!--Button
+
+    NO LONGER BEING USED
         android:id="@+id/btnLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="15dp"
-        android:text="Logout" />
+        android:text="Logout" /-->
 </RelativeLayout>

@@ -4,4 +4,6 @@
     <string name="log_in">Log In</string>
     <string name="new_user_register_here">New User? Register Here</string>
     <string name="log_out">Log Out</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="all_users">All Users</string>
 </resources>

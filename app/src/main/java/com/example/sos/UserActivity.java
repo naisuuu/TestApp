@@ -2,17 +2,20 @@ package com.example.sos;
 
 import android.content.Intent;
 
+import androidx.annotation.RecentlyNonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Button;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class UserActivity extends AppCompatActivity {
     Button btnLogOut;
@@ -25,27 +28,30 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        btnLogOut = findViewById(R.id.btnLogOut);
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                FirebaseAuth.getInstance().signOut();
-                Intent I = new Intent(UserActivity.this, ActivityLogin.class);
-                startActivity(I);
-
-
-            }
-        });
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("TESTT");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("TESTT");
     }
 
+    private void sendToStart(){
+        FirebaseAuth.getInstance().signOut();
+        Intent I = new Intent(UserActivity.this, ActivityLogin.class);
+        startActivity(I);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
        super.onCreateOptionsMenu(menu);
        getMenuInflater().inflate(R.menu.main_menu, menu);
        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.main_logout_btn){
+            sendToStart();
+        }
+
+        return true;
     }
 }
