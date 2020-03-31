@@ -2,7 +2,7 @@ package com.example.sos;
 
 import android.content.Intent;
 
-import androidx.annotation.RecentlyNonNull;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
