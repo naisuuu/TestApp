@@ -7,12 +7,22 @@
     android:gravity="center"
     tools:context="com.example.sos.MainActivity">
 
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="386dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="@string/create_account"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="24sp" />
+
     <EditText
         android:id="@+id/ETemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:autofillHints="" />
     <EditText
@@ -20,20 +30,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        />
+        android:autofillHints="Password" />
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="Sign Up"/>
+        android:text="@string/sign_up"/>
+
     <TextView
         android:id="@+id/TVSignIn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Sign in Here"
         android:layout_margin="15dp"
-        android:textSize="20dp"/>
+        android:text="@string/already_have_an_account_sign_in_here"
+        android:textSize="20sp" />
+
+
+
+
 </LinearLayout>
