@@ -3,4 +3,5 @@
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
     <string name="new_user_register_here">New User? Register Here</string>
+    <string name="log_out">Log Out</string>
 </resources>
