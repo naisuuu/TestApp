@@ -10,30 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:autofillHints="Email" />
 
     <EditText
         android:id="@+id/loginpaswd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:hint="Password"
-        android:inputType="numberPassword"/>
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:autofillHints="Password" />
 
     <Button
         android:id="@+id/btnLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="Login In"
-        android:textSize="25dp" />
+        android:text="@string/log_in"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/TVSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="New User? Register Here"
-        android:textSize="20dp" />
+        android:text="@string/new_user_register_here"
+        android:textSize="20sp" />
 </LinearLayout>

@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String emailID = emailId.getText().toString();
                 String paswd = passwd.getText().toString();
+                String regex = "^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$";
+                if (!(emailID.matches(regex))){
                 if (emailID.isEmpty()) {
                     emailId.setError("Provide your Email first!");
                     emailId.requestFocus();
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                    Toast.makeText(MainActivity.this, "Please enter fields correctly!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
