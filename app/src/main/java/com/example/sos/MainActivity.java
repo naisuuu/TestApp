@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent I = new Intent(MainActivity.this, ActivityLogin.class);
+                I.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(I);
             }
         });
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!task.isSuccessful()) {
                     mRegProgress.hide();
                     Toast.makeText(MainActivity.this.getApplicationContext(),
-                            "SignUp unsuccessful: " + task.getException().getMessage(),
+                            "Signup unsuccessful: " + task.getException().getMessage(),
                             Toast.LENGTH_SHORT).show();
                 } else {
                     mRegProgress.setMessage("Successfully created account!");
