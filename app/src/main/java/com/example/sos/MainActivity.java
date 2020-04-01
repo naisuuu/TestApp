@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,15 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     mRegProgress.setMessage("Please wait while we create your account");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
-
                     registerUser(emailID, paswd);
-                   /*
-
-                    NEEDS TO DIRECT BACK TO MAIN ACTIVITY
-                    THEN ONLY VALIDATE UNDER LOGIN ACTIVITY
-                    THEREFORE LOGIN INTO USER ACTIVITY
-
-                    */
                 } else {
                     Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
