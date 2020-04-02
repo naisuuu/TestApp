@@ -13,10 +13,10 @@
         android:layout_marginStart="134dp"
         android:layout_marginLeft="134dp"
         android:layout_marginTop="80dp"
-        android:src="@drawable/defaultAvatar" />
+        android:src="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/settings display name"
+        android:id="@+id/settingsdisplayname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -24,7 +24,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/settings status"
+        android:id="@+id/settingsstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -33,7 +33,7 @@
         android:text="Hi, there! This is a custom text" />
 
     <Button
-        android:id="@+id/setttings image button"
+        android:id="@+id/setttingsimagebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -43,7 +43,7 @@
         android:textAllCaps="true" />
 
     <Button
-        android:id="@+id/settings status button"
+        android:id="@+id/settingsstatusbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

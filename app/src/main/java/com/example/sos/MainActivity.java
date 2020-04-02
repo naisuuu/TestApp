@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task task) {
 
-                if (!task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     FirebaseUser current_user= FirebaseAuth.getInstance().getCurrentUser();
                     String uid = current_user.getUid();
 
@@ -89,20 +89,16 @@ public class MainActivity extends AppCompatActivity {
                     userMap.put("thumb image", "default");
 
                     mDatabase.setValue(userMap);
+                    mRegProgress.setMessage("Successfully created account!");
+                    mRegProgress.dismiss();
+                    startActivity(new Intent(MainActivity.this, ActivityLogin.class));
 
-
-                    /*
+                } else {
                     mRegProgress.hide();
 
                     Toast.makeText(MainActivity.this.getApplicationContext(),
                             "Signup unsuccessful: " + task.getException().getMessage(),
                             Toast.LENGTH_SHORT).show();
-                            */
-
-                } else {
-                    mRegProgress.setMessage("Successfully created account!");
-                    mRegProgress.dismiss();
-                    startActivity(new Intent(MainActivity.this, ActivityLogin.class));
                 }
             }
         });
