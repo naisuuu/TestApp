@@ -1,5 +1,6 @@
 package com.example.sos;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,10 +89,20 @@ public class MainActivity extends AppCompatActivity {
                     userMap.put("image",     "default");
                     userMap.put("thumb image", "default");
 
-                    mDatabase.setValue(userMap);
-                    mRegProgress.setMessage("Successfully created account!");
-                    mRegProgress.dismiss();
-                    startActivity(new Intent(MainActivity.this, ActivityLogin.class));
+                    mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                mRegProgress.setMessage("Successfully created account!");
+                                mRegProgress.dismiss();
+                                Intent mainIntent = new Intent(MainActivity.this, UserActivity.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(mainIntent);
+                                finish();
+                            }
+                        }
+                    });
+
 
                 } else {
                     mRegProgress.hide();
