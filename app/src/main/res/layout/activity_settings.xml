@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="112dp"
+        android:layout_height="132dp"
+        android:src="@drawable/defaultAvatar" />
+
+
 </RelativeLayout>
