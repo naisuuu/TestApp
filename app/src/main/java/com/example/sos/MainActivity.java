@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignUp;
     TextView signIn;
     FirebaseAuth firebaseAuth;
-
     private ProgressDialog mRegProgress;
 
     private DatabaseReference mDatabase;
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void registerUser(final String displayname, String email, String password){
+    public void registerUser(final String display_name, String email, String password){
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
