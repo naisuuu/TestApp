@@ -18,16 +18,12 @@
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="24sp" />
 
-
     <EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint= "Display Name" />
-
-
-
-
-
+        android:id="@+id/ETdisplayname"
+        android:layout_width="382dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="@string/display_name" />
 
     <EditText
         android:id="@+id/ETemail"

@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">SOS</string>
-    <string name="password">Please enter your password here. . .</string>
+    <string name="password">Password...</string>
     <string name="log_in">Log In</string>
     <string name="new_user_register_here">Not an existing user? Register here</string>
     <string name="log_out">Log Out</string>
     <string name="account_settings">Account Settings</string>
     <string name="all_users">All Users</string>
     <string name="create_account">Create Account</string>
-    <string name="email">Please enter your email address here. . .</string>
+    <string name="email">Email...</string>
     <string name="sign_up">Sign Up</string>
     <string name="already_have_an_account_sign_in_here">Already have an account? Sign in here</string>
     <string name="please_enter_your_email_address_here">Please enter your email address here. . .</string>
     <string name="welcome_to_sos">Welcome to SOS</string>
+    <string name="display_name">Display Name...</string>
 </resources>

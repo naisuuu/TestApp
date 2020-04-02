@@ -22,10 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-    public EditText emailId, passwd;
+    public EditText emailId, passwd, mdisplay_name;
     Button btnSignUp;
     TextView signIn;
     FirebaseAuth firebaseAuth;
+
     private ProgressDialog mRegProgress;
 
     private DatabaseReference mDatabase;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         firebaseAuth = FirebaseAuth.getInstance();
+        mdisplay_name = findViewById(R.id.ETdisplayname);
+        String dispname = mdisplay_name.getText().toString();
         emailId = findViewById(R.id.ETemail);
         passwd = findViewById(R.id.ETpassword);
         btnSignUp = findViewById(R.id.btnSignUp);
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String emailID = emailId.getText().toString();
                 String paswd = passwd.getText().toString();
+                String dispname = mdisplay_name.getText().toString();
 
                 if (emailID.isEmpty() && paswd.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     mRegProgress.setMessage("Please wait while we create your account");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
-                    registerUser(emailID, paswd);
+                    registerUser(dispname,emailID, paswd);
                 } else {
                     Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
@@ -68,14 +72,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void registerUser(String email, String password){
+    public void registerUser(final String displayname, String email, String password){
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
 
                 if (!task.isSuccessful()) {
-
-
                     FirebaseUser current_user= FirebaseAuth.getInstance().getCurrentUser();
                     String uid = current_user.getUid();
 
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     HashMap<String, String> userMap = new HashMap<>();
                     userMap.put("name", display_name);
                     userMap.put("status", "Hi there i'm using SoS chat app");
-                    userMap.put("image", "default");
+                    userMap.put("image",     "default");
                     userMap.put("thumb image", "default");
 
                     mDatabase.setValue(userMap);
