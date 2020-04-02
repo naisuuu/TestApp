@@ -15,6 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     public EditText emailId, passwd;
@@ -22,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     TextView signIn;
     FirebaseAuth firebaseAuth;
     private ProgressDialog mRegProgress;
+
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +74,30 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task task) {
 
                 if (!task.isSuccessful()) {
+
+
+                    FirebaseUser current_user= FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = current_user.getUid();
+
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+
+                    HashMap<String, String> userMap = new HashMap<>();
+                    userMap.put("name", display_name);
+                    userMap.put("status", "Hi there i'm using SoS chat app");
+                    userMap.put("image", "default");
+                    userMap.put("thumb image", "default");
+
+                    mDatabase.setValue(userMap);
+
+
+                    /*
                     mRegProgress.hide();
+
                     Toast.makeText(MainActivity.this.getApplicationContext(),
                             "Signup unsuccessful: " + task.getException().getMessage(),
                             Toast.LENGTH_SHORT).show();
+                            */
+
                 } else {
                     mRegProgress.setMessage("Successfully created account!");
                     mRegProgress.dismiss();

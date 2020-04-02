@@ -16,7 +16,7 @@
         android:src="@drawable/defaultAvatar" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/settings display name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -24,7 +24,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/settings status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -33,7 +33,7 @@
         android:text="Hi, there! This is a custom text" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/setttings image button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -43,7 +43,7 @@
         android:textAllCaps="true" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/settings status button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -51,6 +51,5 @@
         android:layout_marginBottom="57dp"
         android:text="change status"
         android:textAllCaps="true" />
-
 
 </RelativeLayout>
