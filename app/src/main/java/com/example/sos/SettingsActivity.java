@@ -1,13 +1,16 @@
  package com.example.sos;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -82,12 +87,47 @@ import de.hdodenhof.circleimageview.CircleImageView;
             @Override
             public void onClick(View v) {
 
-                Intent galleryIntent = new Intent();
+
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(SettingsActivity.this);
+
+                       //Can pick between above or below for image picker
+
+               /* Intent galleryIntent = new Intent();
                 galleryIntent.setType("image/");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
                 startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"),GALLERY_PICK); //opens the documents app
+                */
             }
         });
     }
-}
+
+     @Override
+     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+         super.onActivityResult(requestCode, resultCode, data);
+
+         if(requestCode == GALLERY_PICK && resultCode == RESULT_OK){
+
+             Uri imageUri = data.getData();
+
+             CropImage.activity(imageUri)
+                     .setAspectRatio(1,1)
+                     .start(this);
+             //Toast.makeText(SettingsActivity.this,imageUri,Toast.LENGTH_LONG).show(); Displays chosen data
+         }
+         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) { //makes sure result is taken from created cropactivity
+             CropImage.ActivityResult result = CropImage.getActivityResult(data); //stores result as result
+
+             if (resultCode == RESULT_OK) {
+
+                 Uri resultUri = result.getUri(); //gives us uri of cropped image
+
+             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+
+                 Exception error = result.getError();
+             }
+         }
+     }
+ }
