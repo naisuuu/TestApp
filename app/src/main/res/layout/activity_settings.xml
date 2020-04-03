@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
@@ -35,7 +36,7 @@
         android:text="@string/hi_there_this_is_a_custom_text" />
 
     <Button
-        android:id="@+id/setttingsimagebutton"
+        android:id="@+id/setttings_image_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -45,7 +46,7 @@
         android:textAllCaps="true" />
 
     <Button
-        android:id="@+id/settingsstatusbutton"
+        android:id="@+id/settings_status_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -55,4 +56,4 @@
         android:textAllCaps="true" />
 
 </RelativeLayout>
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"   unused namespace-->
+    <!--   unused namespace-->

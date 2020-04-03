@@ -3,7 +3,10 @@
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +27,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
     private TextView mName;
     private TextView mStatus;
 
+    private Button mStatusBtn;
+    private Button mImageBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
         mDisplayImage = findViewById(R.id.settings_image);
         mName = findViewById(R.id.settings_displayname);
         mStatus = findViewById(R.id.settings_status);
-
+        mStatusBtn = findViewById(R.id.settings_status_btn);
 
         String current_uid = mCurrentUser.getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
@@ -56,6 +61,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        mStatusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String status_value = mStatus.getText().toString();
+                Intent status_intent = new Intent(SettingsActivity.this, StatusActivity.class);
+                status_intent.putExtra("status_value",status_value);
+                startActivity(status_intent);
             }
         });
     }
