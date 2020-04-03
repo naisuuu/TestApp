@@ -28,6 +28,8 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.Random;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
  public class SettingsActivity extends AppCompatActivity {
@@ -133,8 +135,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
              if (resultCode == RESULT_OK) {
 
-                 Uri resultUri = result.getUri(); //gives us uri of cropped image
-                 StorageReference filepath = mImageStorage.child("profile_images").child("profile_img.jpg");
+                 Uri resultUri = result.getUri(); //gives us uri of cropped image        this below makes a random string and adds jpg extension to it
+                 StorageReference filepath = mImageStorage.child("profile_images").child(random()+".jpg");
                  filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                      @Override
                      public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -153,5 +155,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
          }
      }
 
-
+     //Random String Generator
+     public static String random(){
+         Random generator = new Random();
+         StringBuilder randomStringBuilder = new StringBuilder();
+         int randomLength = generator.nextInt(10);
+         char tempChar;
+         for (int i = 0; i < randomLength; i++){
+             tempChar = (char)(generator.nextInt(96)+32);
+             randomStringBuilder.append(tempChar);
+         }
+         return randomStringBuilder.toString();
+     }
  }
