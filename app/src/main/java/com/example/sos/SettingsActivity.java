@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +21,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -36,12 +42,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
     private Button mImageBtn;
 
     private static final int GALLERY_PICK = 1;
+
+    //Storage
+    private StorageReference mImageStorage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         mDisplayImage = findViewById(R.id.settings_image);
         mName = findViewById(R.id.settings_displayname);
@@ -49,9 +57,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
         mStatusBtn = findViewById(R.id.settings_status_btn);
         mImageBtn = findViewById(R.id.setttings_image_btn);
 
+        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
 
+        //Storage
+        mImageStorage = FirebaseStorage.getInstance().getReference();
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -123,6 +134,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
              if (resultCode == RESULT_OK) {
 
                  Uri resultUri = result.getUri(); //gives us uri of cropped image
+                 StorageReference filepath = mImageStorage.child("profile_images").child("profile_img.jpg");
+                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                     @Override
+                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                         if(task.isSuccessful()){
+                             Toast.makeText(SettingsActivity.this, "Working", Toast.LENGTH_LONG).show();
+                         } else {
+                             Toast.makeText(SettingsActivity.this, "Not working", Toast.LENGTH_LONG).show();
+                         }
+                     }
+                 });
 
              } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
 
@@ -130,4 +152,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
              }
          }
      }
+
+
  }
