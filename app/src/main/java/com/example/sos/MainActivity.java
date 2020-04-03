@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     userMap.put("name", display_name);
                     userMap.put("status", "Hi there i'm using SoS chat app");
                     userMap.put("image",     "default");
-                    userMap.put("thumb image", "default");
+                    userMap.put("thumb_image", "default");
 
                     mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

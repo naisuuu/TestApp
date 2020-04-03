@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
@@ -16,21 +16,23 @@
         android:src="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/settingsdisplayname"
+        android:id="@+id/settings_displayname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="DISPLAY NAME"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="286dp"
+        android:text="@string/displayname"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/settingsstatus"
+        android:id="@+id/settings_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="256dp"
-        android:text="Hi, there! This is a custom text" />
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="317dp"
+        android:text="@string/hi_there_this_is_a_custom_text" />
 
     <Button
         android:id="@+id/setttingsimagebutton"
@@ -39,7 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="120dp"
-        android:text="change image"
+        android:text="@string/change_image"
         android:textAllCaps="true" />
 
     <Button
@@ -49,7 +51,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="57dp"
-        android:text="change status"
+        android:text="@string/change_status"
         android:textAllCaps="true" />
 
 </RelativeLayout>
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"   unused namespace-->
