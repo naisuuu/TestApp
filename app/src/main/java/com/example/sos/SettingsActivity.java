@@ -29,6 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
     private Button mStatusBtn;
     private Button mImageBtn;
+
+    private static final int GALLERY_PICK = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
         mName = findViewById(R.id.settings_displayname);
         mStatus = findViewById(R.id.settings_status);
         mStatusBtn = findViewById(R.id.settings_status_btn);
+        mImageBtn = findViewById(R.id.setttings_image_btn);
 
         String current_uid = mCurrentUser.getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
@@ -72,6 +75,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
                 Intent status_intent = new Intent(SettingsActivity.this, StatusActivity.class);
                 status_intent.putExtra("status_value",status_value);
                 startActivity(status_intent);
+            }
+        });
+
+        mImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent galleryIntent = new Intent();
+                galleryIntent.setType("image/");
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"),GALLERY_PICK); //opens the documents app
             }
         });
     }
