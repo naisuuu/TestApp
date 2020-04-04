@@ -2,11 +2,12 @@ package com.example.sos;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toolbar;
+
 
 public class UsersActivity extends AppCompatActivity {
 
@@ -25,6 +26,9 @@ public class UsersActivity extends AppCompatActivity {
         ///                 mUsersList = (RecyclerView) findViewById(R.id.users_list);
 
         mToolbar = (Toolbar) findViewById(R.id.users_appBar);
+        getSupportActionBar().setTitle("All Users");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(mToolbar);
 
 
         mUsersList = findViewById(R.id.users_list);
