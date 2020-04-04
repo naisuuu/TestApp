@@ -3,6 +3,8 @@ package com.example.sos;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toolbar;
 
@@ -13,6 +15,7 @@ public class UsersActivity extends AppCompatActivity {
     private RecyclerView mUsersList;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
