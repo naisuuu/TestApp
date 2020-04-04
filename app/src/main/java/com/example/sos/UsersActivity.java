@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -51,31 +52,70 @@ public class UsersActivity extends AppCompatActivity {
 
     }
 
-    protected RecyclerView.Adapter newAdapter() {
-        FirebaseRecyclerOptions<Users> options =
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        FirebaseRecyclerOptions<Users> options=
                 new FirebaseRecyclerOptions.Builder<Users>()
                         .setQuery(mUsersDatabase,Users.class)
                         .setLifecycleOwner(this)
                         .build();
 
-        return new FirebaseRecyclerAdapter<Users, UsersViewHolder>(options) {
+
+
+        FirebaseRecyclerAdapter<Users,UsersViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Users, UsersViewHolder>(options) {
+            @NonNull
             @Override
-            public TeamHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new TeamHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.team_card_view, parent, false));
+            public UsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return new UsersViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.users_single_layout, parent, false));
+            }
+            @Override
+            protected void onBindViewHolder(@NonNull UsersViewHolder holder, int position, @NonNull Users model) {
+                //We want to passe the name of the user it will get that name and than will stored in layout (user_single_layout.xml -> display_name)
+                holder.setName(model.getName());
             }
 
-            @Override
-            protected void onBindViewHolder(TeamHolder holder, int position, Team model) {
-                teamItems.add(model);
-                holder.bind(model);
-            }
-
-            @Override
-            public void onDataChanged() {
-            }
         };
+        mUsersList.setAdapter(firebaseRecyclerAdapter);
+    }
 
+    public static class UsersViewHolder extends RecyclerView.ViewHolder { //Don't forget "static "
+
+        //We need a view then be used by firebase adapter
+        View mView;
+
+
+        public UsersViewHolder(View itemView) {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setName(String name){
+            TextView userNameView = mView.findViewById(R.id.user_single_name);
+            userNameView.setText(name);
+        }
+
+    }
+
+
+
+    public static class USerViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+        public USerViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView= itemView;
+
+        }
+
+        public void setDetails(String name) {
+            TextView textViewForuser=(TextView) mView.findViewById(R.id.username);
+            textViewForuser.setText(name);
+
+        }
+    }//end USerViewHolder class f
     public class UsersViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
@@ -87,9 +127,7 @@ public class UsersActivity extends AppCompatActivity {
             mView = itemView;
         }
 
-            public void setName(String name){
-
-            }
+        public void setName(String name){
     }
-
+}
 }
