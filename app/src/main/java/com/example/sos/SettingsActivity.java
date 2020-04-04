@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -82,6 +83,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
                 mName.setText(name);
                 mStatus.setText(status);
+
+                Picasso.get().load(image).into(mDisplayImage);
 
             }
 
@@ -164,7 +167,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
                                      if (!task.isSuccessful()) {
                                          throw task.getException();
                                      }
-
                                      // Continue with the task to get the download URL
                                      return filepath.getDownloadUrl();
                                  }
