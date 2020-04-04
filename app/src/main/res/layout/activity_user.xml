@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.sos.UserActivity">
+    tools:context="com.example.sos.MainActivity">
         <include
             android:id="@+id/main_page_toolbar"
             layout="@layout/app_bar_layout" />

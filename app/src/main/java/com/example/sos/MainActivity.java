@@ -1,116 +1,62 @@
 package com.example.sos;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
+import androidx.appcompat.widget.Toolbar;
 
-import java.util.HashMap;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    public EditText emailId, passwd, mdisplay_name;
-    Button btnSignUp;
-    TextView signIn;
+    Button btnLogOut;
     FirebaseAuth firebaseAuth;
-    private ProgressDialog mRegProgress;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private Toolbar mToolbar;
 
-    private DatabaseReference mDatabase;
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        firebaseAuth = FirebaseAuth.getInstance();
-        mdisplay_name = findViewById(R.id.ETdisplayname);
-        emailId = findViewById(R.id.ETemail);
-        passwd = findViewById(R.id.ETpassword);
-        btnSignUp = findViewById(R.id.btnSignUp);
-        signIn = findViewById(R.id.TVSignIn);
-        mRegProgress = new ProgressDialog(this);
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String emailID = emailId.getText().toString();
-                String paswd = passwd.getText().toString();
-                String dispname = mdisplay_name.getText().toString();
-
-                if (emailID.isEmpty() && paswd.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
-                } else if (!(emailID.isEmpty() && paswd.isEmpty())) {
-                    mRegProgress.setTitle("Registering User...");
-                    mRegProgress.setMessage("Please wait while we create your account");
-                    mRegProgress.setCanceledOnTouchOutside(false);
-                    mRegProgress.show();
-                    registerUser(dispname,emailID, paswd);
-                } else {
-                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent I = new Intent(MainActivity.this, ActivityLogin.class);
-                I.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(I);
-            }
-        });
+        setContentView(R.layout.activity_user);
+        mToolbar = findViewById(R.id.main_page_toolbar);
+        setSupportActionBar(mToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("TESTT");
     }
-    public void registerUser(final String display_name, String email, String password){
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
 
-                if (task.isSuccessful()) {
-                    FirebaseUser current_user= FirebaseAuth.getInstance().getCurrentUser();
-                    String uid = current_user.getUid();
+    private void sendToStart(){
+        FirebaseAuth.getInstance().signOut();
+        Intent I = new Intent(MainActivity.this, ActivityLogin.class);
+        startActivity(I);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+       super.onCreateOptionsMenu(menu);
+       getMenuInflater().inflate(R.menu.main_menu, menu);
+       return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
 
-                    mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+        if(item.getItemId() == R.id.main_logout_btn){
+            sendToStart();
+        }
 
-                    HashMap<String, String> userMap = new HashMap<>();
-                    userMap.put("name", display_name);
-                    userMap.put("status", "Hi there i'm using SoS chat app");
-                    userMap.put("image",     "default");
-                    userMap.put("thumb_image", "default");
+        if (item.getItemId() == R.id.main_settings_btn) {
 
-                    mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                mRegProgress.setMessage("Successfully created account!");
-                                mRegProgress.dismiss();
-                                Intent mainIntent = new Intent(MainActivity.this, UserActivity.class);
-                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(mainIntent);
-                                finish();
-                            }
-                        }
-                    });
-
-
-                } else {
-                    mRegProgress.hide();
-
-                    Toast.makeText(MainActivity.this.getApplicationContext(),
-                            "Signup unsuccessful: " + task.getException().getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
+        }
+        return true;
     }
 }

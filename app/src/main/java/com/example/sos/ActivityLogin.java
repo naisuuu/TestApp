@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 ///Hey///
@@ -40,7 +39,7 @@ public class ActivityLogin extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Intent I = new Intent(ActivityLogin.this, UserActivity.class);
+                    Intent I = new Intent(ActivityLogin.this, MainActivity.class);
                     I.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(I);
                 }
@@ -49,7 +48,7 @@ public class ActivityLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent I = new Intent(ActivityLogin.this, MainActivity.class);
+                Intent I = new Intent(ActivityLogin.this, RegisterActivity.class);
                 startActivity(I);
             }
         });
@@ -73,7 +72,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 Toast.makeText(ActivityLogin.this, "Not sucessfull", Toast.LENGTH_SHORT).show();
                             } else {
                                 mLogProgress.dismiss();
-                                startActivity(new Intent(ActivityLogin.this, UserActivity.class));
+                                startActivity(new Intent(ActivityLogin.this, MainActivity.class));
                             }
                         }
                     });
