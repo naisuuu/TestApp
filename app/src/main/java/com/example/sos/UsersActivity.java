@@ -97,37 +97,5 @@ public class UsersActivity extends AppCompatActivity {
             TextView userNameView = mView.findViewById(R.id.user_single_name);
             userNameView.setText(name);
         }
-
     }
-
-
-
-    public static class USerViewHolder extends RecyclerView.ViewHolder {
-        View mView;
-        public USerViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mView= itemView;
-
-        }
-
-        public void setDetails(String name) {
-            TextView textViewForuser=(TextView) mView.findViewById(R.id.username);
-            textViewForuser.setText(name);
-
-        }
-    }//end USerViewHolder class f
-    public class UsersViewHolder extends RecyclerView.ViewHolder {
-
-        View mView;
-
-
-        public UsersViewHolder(View itemView) {
-            super(itemView);
-
-            mView = itemView;
-        }
-
-        public void setName(String name){
-    }
-}
 }
