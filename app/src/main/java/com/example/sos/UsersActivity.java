@@ -10,10 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class UsersActivity extends AppCompatActivity {
@@ -22,6 +26,7 @@ public class UsersActivity extends AppCompatActivity {
 
     private RecyclerView mUsersList;
 
+    private DatabaseReference mUsersDatabase;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -38,31 +43,38 @@ public class UsersActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("All Users");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mUsersList = (RecyclerView) findViewById(R.id.users_list);
         mUsersList.setHasFixedSize(true);
         mUsersList.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
+    protected RecyclerView.Adapter newAdapter() {
+        FirebaseRecyclerOptions<Users> options =
+                new FirebaseRecyclerOptions.Builder<Users>()
+                        .setQuery(mUsersDatabase,Users.class)
+                        .setLifecycleOwner(this)
+                        .build();
 
-    FirebaseRecyclerAdapter<Users, UsersViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Users, UsersViewHolder>() {
-        @Override
-        protected void onBindViewHolder(@NonNull UsersViewHolder holder, int position, @NonNull Users model) {
+        return new FirebaseRecyclerAdapter<Users, UsersViewHolder>(options) {
+            @Override
+            public TeamHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                return new TeamHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.team_card_view, parent, false));
+            }
 
-        }
+            @Override
+            protected void onBindViewHolder(TeamHolder holder, int position, Team model) {
+                teamItems.add(model);
+                holder.bind(model);
+            }
 
-        @NonNull
-        @Override
-        public UsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
-        }
-    }
-
-    }
-
+            @Override
+            public void onDataChanged() {
+            }
+        };
 
     public class UsersViewHolder extends RecyclerView.ViewHolder {
 
@@ -75,7 +87,9 @@ public class UsersActivity extends AppCompatActivity {
             mView = itemView;
         }
 
+            public void setName(String name){
 
+            }
     }
 
 }
