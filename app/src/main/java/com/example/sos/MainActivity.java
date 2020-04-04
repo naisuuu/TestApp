@@ -1,5 +1,6 @@
 package com.example.sos;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         firebaseAuth = FirebaseAuth.getInstance();
         mdisplay_name = findViewById(R.id.ETdisplayname);
-        String dispname = mdisplay_name.getText().toString();
         emailId = findViewById(R.id.ETemail);
         passwd = findViewById(R.id.ETpassword);
         btnSignUp = findViewById(R.id.btnSignUp);
@@ -86,12 +86,22 @@ public class MainActivity extends AppCompatActivity {
                     userMap.put("name", display_name);
                     userMap.put("status", "Hi there i'm using SoS chat app");
                     userMap.put("image",     "default");
-                    userMap.put("thumb image", "default");
+                    userMap.put("thumb_image", "default");
 
-                    mDatabase.setValue(userMap);
-                    mRegProgress.setMessage("Successfully created account!");
-                    mRegProgress.dismiss();
-                    startActivity(new Intent(MainActivity.this, ActivityLogin.class));
+                    mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                mRegProgress.setMessage("Successfully created account!");
+                                mRegProgress.dismiss();
+                                Intent mainIntent = new Intent(MainActivity.this, UserActivity.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(mainIntent);
+                                finish();
+                            }
+                        }
+                    });
+
 
                 } else {
                     mRegProgress.hide();
