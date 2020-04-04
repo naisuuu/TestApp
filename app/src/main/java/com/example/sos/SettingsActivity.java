@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +47,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
     private static final int GALLERY_PICK = 1;
 
+    private ProgressDialog mProgressDialog;
+
     //Storage
     private StorageReference mImageStorage;
 
@@ -62,6 +66,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
+
+
 
         //Storage
         mImageStorage = FirebaseStorage.getInstance().getReference();
@@ -99,8 +105,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
         mImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(SettingsActivity.this);
@@ -135,21 +139,60 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
              if (resultCode == RESULT_OK) {
 
-                 Uri resultUri = result.getUri(); //gives us uri of cropped image        this below makes a random string and adds jpg extension to it
-                 StorageReference filepath = mImageStorage.child("profile_images").child(random()+".jpg");
+                 mProgressDialog = new ProgressDialog(SettingsActivity.this);
+                 mProgressDialog.setTitle("Uploading Image…");
+                 mProgressDialog.setMessage("Please wait while we upload and process the image.");
+                 mProgressDialog.setCanceledOnTouchOutside(false);
+                 mProgressDialog.show();
+
+                 final Uri resultUri = result.getUri();
+
+                 //gives us uri of cropped image        this below makes a random string and adds jpg extension to it
+                 //StorageReference filepath = mImageStorage.child("profile_images").child(random()+".jpg");
+
+                 String currentUserId = mCurrentUser.getUid();                     //Save image as userId instead to prevent loads of images
+                 final StorageReference filepath = mImageStorage.child("profile_images").child(currentUserId+".jpg");
+
                  filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                      @Override
-                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) { //task returns a download url for image
+
                          if(task.isSuccessful()){
+                             Task<Uri> urlTask = filepath.putFile(resultUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                                 @Override
+                                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                     if (!task.isSuccessful()) {
+                                         throw task.getException();
+                                     }
+
+                                     // Continue with the task to get the download URL
+                                     return filepath.getDownloadUrl();
+                                 }
+                             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                 @Override
+                                 public void onComplete(@NonNull Task<Uri> task) {
+                                     if (task.isSuccessful()) {
+                                         Uri downloadUri = task.getResult();
+                                         String download_url = downloadUri.toString();
+                                         mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                             @Override
+                                             public void onComplete(@NonNull Task<Void> task) {
+                                                 if(task.isSuccessful()){
+                                                     mProgressDialog.dismiss();
+                                                     Toast.makeText(SettingsActivity.this,"Success",Toast.LENGTH_LONG).show();
+                                                 }
+                                             }
+                                         });
+                                     }
+                                 }
+                             });
                              Toast.makeText(SettingsActivity.this, "Working", Toast.LENGTH_LONG).show();
                          } else {
                              Toast.makeText(SettingsActivity.this, "Not working", Toast.LENGTH_LONG).show();
                          }
                      }
                  });
-
              } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-
                  Exception error = result.getError();
              }
          }
@@ -159,7 +202,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
      public static String random(){
          Random generator = new Random();
          StringBuilder randomStringBuilder = new StringBuilder();
-         int randomLength = generator.nextInt(10);
+         int randomLength = generator.nextInt(20); //determines length of name
          char tempChar;
          for (int i = 0; i < randomLength; i++){
              tempChar = (char)(generator.nextInt(96)+32);
