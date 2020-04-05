@@ -144,6 +144,8 @@
                      .setMinCropWindowSize(500, 500)
                      .start(this);
              //Toast.makeText(SettingsActivity.this,imageUri,Toast.LENGTH_LONG).show(); Displays chosen data
+         } else {
+             Toast.makeText(SettingsActivity.this, "Reached here", Toast.LENGTH_LONG).show();
          }
          if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) { //makes sure result is taken from created cropactivity
              CropImage.ActivityResult result = CropImage.getActivityResult(data); //stores result as result
@@ -160,13 +162,12 @@
 
                  File thumb_filepath = new File(resultUri.getPath());
                  String thumb_filePath = thumb_filepath.toString();
-
+//PROBLEM DUE TO thumb_bitmap
                  Bitmap thumb_bitmap = null;
                  try {
                      thumb_bitmap = SiliCompressor.with(SettingsActivity.this).getCompressBitmap(thumb_filePath);
                  } catch (IOException e) {
                      e.printStackTrace();
-                     Toast.makeText(SettingsActivity.this, "Reached here", Toast.LENGTH_LONG).show();
                  }
 
                  ByteArrayOutputStream baos = new ByteArrayOutputStream();
