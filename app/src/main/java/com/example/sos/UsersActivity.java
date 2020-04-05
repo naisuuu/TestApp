@@ -1,19 +1,18 @@
 package com.example.sos;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -38,7 +37,7 @@ public class UsersActivity extends AppCompatActivity {
         /// Code from video mToolbar = (Toolbar) findViewById(R.id.user_appBar);
         ///                 mUsersList = (RecyclerView) findViewById(R.id.users_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.users_appBar);
+        mToolbar = findViewById(R.id.users_appBar);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setTitle("All Users");
@@ -46,7 +45,7 @@ public class UsersActivity extends AppCompatActivity {
 
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        mUsersList = (RecyclerView) findViewById(R.id.users_list);
+        mUsersList = findViewById(R.id.users_list);
         mUsersList.setHasFixedSize(true);
         mUsersList.setLayoutManager(new LinearLayoutManager(this));
 
@@ -76,6 +75,7 @@ public class UsersActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull UsersViewHolder holder, int position, @NonNull Users model) {
                 //We want to passe the name of the user it will get that name and than will stored in layout (user_single_layout.xml -> display_name)
                 holder.setName(model.getName());
+                holder.setUserStatus(model.getStatus());
             }
 
         };
@@ -96,6 +96,11 @@ public class UsersActivity extends AppCompatActivity {
         public void setName(String name){
             TextView userNameView = mView.findViewById(R.id.user_single_name);
             userNameView.setText(name);
+        }
+
+        public void setUserStatus(String userStatus) {
+            TextView userStatusView = mView.findViewById(R.id.user_single_status);
+            userStatusView.setText(userStatus);
         }
     }
 }

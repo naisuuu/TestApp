@@ -1,39 +1,45 @@
  package com.example.sos;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+ import android.app.ProgressDialog;
+ import android.content.Intent;
+ import android.graphics.Bitmap;
+ import android.net.Uri;
+ import android.os.Bundle;
+ import android.view.View;
+ import android.widget.Button;
+ import android.widget.TextView;
+ import android.widget.Toast;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+ import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+ import com.google.android.gms.tasks.OnCompleteListener;
+ import com.google.android.gms.tasks.Task;
+ import com.google.firebase.auth.FirebaseAuth;
+ import com.google.firebase.auth.FirebaseUser;
+ import com.google.firebase.database.DataSnapshot;
+ import com.google.firebase.database.DatabaseError;
+ import com.google.firebase.database.DatabaseReference;
+ import com.google.firebase.database.FirebaseDatabase;
+ import com.google.firebase.database.ValueEventListener;
+ import com.google.firebase.storage.FirebaseStorage;
+ import com.google.firebase.storage.StorageReference;
+ import com.google.firebase.storage.UploadTask;
+ import com.iceteck.silicompressorr.SiliCompressor;
+ import com.squareup.picasso.Picasso;
+ import com.theartofdev.edmodo.cropper.CropImage;
+ import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.util.Random;
+ import java.io.ByteArrayOutputStream;
+ import java.io.File;
+ import java.io.IOException;
+ import java.util.HashMap;
+ import java.util.Map;
+ import java.util.Random;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+ import de.hdodenhof.circleimageview.CircleImageView;
+
 
  public class SettingsActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
@@ -53,6 +59,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
     //Storage
     private StorageReference mImageStorage;
 
+     Uri pickedImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +90,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
                 mName.setText(name);
                 mStatus.setText(status);
-
-                Picasso.get().load(image).into(mDisplayImage);
+                if (!image.equals("default")) {
+                    Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mDisplayImage);
+                }
 
             }
 
@@ -123,7 +131,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
             }
         });
     }
-
      @Override
      protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
          super.onActivityResult(requestCode, resultCode, data);
@@ -134,6 +141,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
              CropImage.activity(imageUri)
                      .setAspectRatio(1,1)
+                     .setMinCropWindowSize(500, 500)
                      .start(this);
              //Toast.makeText(SettingsActivity.this,imageUri,Toast.LENGTH_LONG).show(); Displays chosen data
          }
@@ -148,19 +156,69 @@ import de.hdodenhof.circleimageview.CircleImageView;
                  mProgressDialog.setCanceledOnTouchOutside(false);
                  mProgressDialog.show();
 
-                 final Uri resultUri = result.getUri();
+                 Uri resultUri = result.getUri();
 
-                 //gives us uri of cropped image        this below makes a random string and adds jpg extension to it
-                 //StorageReference filepath = mImageStorage.child("profile_images").child(random()+".jpg");
+                 File thumb_filepath = new File(resultUri.getPath());
+                 String thumb_filePath = thumb_filepath.toString();
 
-                 String currentUserId = mCurrentUser.getUid();                     //Save image as userId instead to prevent loads of images
-                 final StorageReference filepath = mImageStorage.child("profile_images").child(currentUserId+".jpg");
+                 Bitmap thumb_bitmap = null;
+                 try {
+                     thumb_bitmap = SiliCompressor.with(SettingsActivity.this).getCompressBitmap(thumb_filePath);
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                     Toast.makeText(SettingsActivity.this, "Reached here", Toast.LENGTH_LONG).show();
+                 }
+
+                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                 thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                 final byte[] thumb_byte = baos.toByteArray();
+
+                 String currentUserId = mCurrentUser.getUid();//Save image as userId instead to prevent loads of images
+                 StorageReference filepath = mImageStorage.child("profile_images").child(currentUserId + ".jpg");
+                 final StorageReference thumb_FilePath = mImageStorage.child("profile_images").child(currentUserId + ".jpg");
+
 
                  filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                      @Override
                      public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) { //task returns a download url for image
 
-                         if(task.isSuccessful()){
+                         if (task.isSuccessful()) {
+                             final String download_url = task.getResult().getStorage().getDownloadUrl().toString();
+
+                             UploadTask uploadTask = thumb_FilePath.putBytes(thumb_byte);
+                             uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                 @Override
+                                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+
+                                     String thumb_downloadUrl = thumb_task.getResult().getStorage().getDownloadUrl().toString();
+
+                                     if (thumb_task.isSuccessful()) {
+
+                                         Map update_hashMap = new HashMap();
+                                         update_hashMap.put("image", download_url);
+                                         update_hashMap.put("thumb_image", thumb_downloadUrl);
+
+                                         mUserDatabase.updateChildren(update_hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                             @Override
+                                             public void onComplete(@NonNull Task<Void> task) {
+                                                 if (task.isSuccessful()) {
+                                                     mProgressDialog.dismiss();
+                                                     Toast.makeText(SettingsActivity.this, "Success Uploading", Toast.LENGTH_LONG).show();
+                                                 }
+                                             }
+                                         });
+                                     } else {
+                                         Toast.makeText(SettingsActivity.this, "Error Uploading Thumbnail", Toast.LENGTH_LONG).show();
+                                         mProgressDialog.dismiss();
+                                     }
+                                 }
+                             });
+                         } else {
+                             Toast.makeText(SettingsActivity.this, "Error Uploading", Toast.LENGTH_LONG).show();
+                         }
+
+                         // Too long and unnecessary
+                         /*if(task.isSuccessful()){
                              Task<Uri> urlTask = filepath.putFile(resultUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                                  @Override
                                  public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -185,17 +243,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
                                                  }
                                              }
                                          });
+                                         File thumb_filepath = new File(downloadUri.getPath());
+                                         Bitmap compressedImageFile = Compressor.compress(this, thumb_filepath);
                                      }
                                  }
-                             });
-                             Toast.makeText(SettingsActivity.this, "Working", Toast.LENGTH_LONG).show();
-                         } else {
-                             Toast.makeText(SettingsActivity.this, "Not working", Toast.LENGTH_LONG).show();
-                         }
+                             });*/
+                         Toast.makeText(SettingsActivity.this, "Working", Toast.LENGTH_LONG).show();
                      }
                  });
              } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                  Exception error = result.getError();
+                 Toast.makeText(SettingsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
              }
          }
      }
