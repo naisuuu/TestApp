@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Display Name"
-        android:textSize="30dp"
-        android:textsize="24dp" />
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/profile_send_req_btn"
