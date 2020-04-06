@@ -26,19 +26,18 @@
  import com.google.firebase.storage.FirebaseStorage;
  import com.google.firebase.storage.StorageReference;
  import com.google.firebase.storage.UploadTask;
- import com.iceteck.silicompressorr.SiliCompressor;
  import com.squareup.picasso.Picasso;
  import com.theartofdev.edmodo.cropper.CropImage;
  import com.theartofdev.edmodo.cropper.CropImageView;
 
  import java.io.ByteArrayOutputStream;
  import java.io.File;
- import java.io.IOException;
  import java.util.HashMap;
  import java.util.Map;
  import java.util.Random;
 
  import de.hdodenhof.circleimageview.CircleImageView;
+ import id.zelory.compressor.Compressor;
 
 
  public class SettingsActivity extends AppCompatActivity {
@@ -163,12 +162,16 @@
                  File thumb_filepath = new File(resultUri.getPath());
                  String thumb_filePath = thumb_filepath.toString();
 //PROBLEM DUE TO thumb_bitmap
-                 Bitmap thumb_bitmap = null;
-                 try {
-                     thumb_bitmap = SiliCompressor.with(SettingsActivity.this).getCompressBitmap(thumb_filePath);
-                 } catch (IOException e) {
-                     e.printStackTrace();
-                 }
+                 //bitmap causing problem
+
+                 Bitmap thumb_bitmap = new Compressor(this)
+                         .setMaxWidth(200)
+                         .setMaxHeight(200)
+                         .setQuality(75).
+                                 compressToBitmap(thumb_filepath);
+
+
+
 
                  ByteArrayOutputStream baos = new ByteArrayOutputStream();
                  thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
