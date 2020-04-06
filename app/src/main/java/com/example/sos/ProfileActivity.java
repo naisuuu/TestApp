@@ -82,8 +82,8 @@ public class ProfileActivity extends AppCompatActivity {
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
 
-                //come back to fix :)
-                Picasso.with(ProfileActivity.this).load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
+                //come back to if needs to be fixed
+                Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
 
 
                 mProgressDialog.dismiss();
