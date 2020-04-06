@@ -34,7 +34,6 @@
  import java.io.File;
  import java.util.HashMap;
  import java.util.Map;
- import java.util.Random;
 
  import de.hdodenhof.circleimageview.CircleImageView;
  import id.zelory.compressor.Compressor;
@@ -160,17 +159,15 @@
                  Uri resultUri = result.getUri();
 
                  File thumb_filepath = new File(resultUri.getPath());
-                 String thumb_filePath = thumb_filepath.toString();
-//PROBLEM DUE TO thumb_bitmap
-                 //bitmap causing problem
+                 //String thumb_filePath = thumb_filepath.toString();
+
+
 
                  Bitmap thumb_bitmap = new Compressor(this)
-                         .setMaxWidth(200)
                          .setMaxHeight(200)
-                         .setQuality(75).
-                                 compressToBitmap(thumb_filepath);
-
-
+                         .setMaxWidth(200)
+                         .setQuality(75)
+                         .compressToBitmap(thumb_filepath);
 
 
                  ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -179,7 +176,7 @@
 
                  String currentUserId = mCurrentUser.getUid();//Save image as userId instead to prevent loads of images
                  StorageReference filepath = mImageStorage.child("profile_images").child(currentUserId + ".jpg");
-                 final StorageReference thumb_FilePath = mImageStorage.child("profile_images").child(currentUserId + ".jpg");
+                 final StorageReference thumb_FilePath = mImageStorage.child("profile_images").child("thumbs").child(currentUserId + ".jpg");
 
 
                  filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -260,18 +257,5 @@
                  Toast.makeText(SettingsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
              }
          }
-     }
-
-     //Random String Generator
-     public static String random(){
-         Random generator = new Random();
-         StringBuilder randomStringBuilder = new StringBuilder();
-         int randomLength = generator.nextInt(20); //determines length of name
-         char tempChar;
-         for (int i = 0; i < randomLength; i++){
-             tempChar = (char)(generator.nextInt(96)+32);
-             randomStringBuilder.append(tempChar);
-         }
-         return randomStringBuilder.toString();
      }
  }
