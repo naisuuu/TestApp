@@ -1,59 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/settings_image"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="134dp"
-        android:layout_marginLeft="134dp"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/ic_launcher_background" />
+        android:layout_marginTop="44dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="@+id/settings_displayname"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/settings_displayname"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/settings_displayname"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="286dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="48dp"
         android:text="@string/displayname"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/settings_status"
+        app:layout_constraintEnd_toEndOf="@+id/settings_status"
+        app:layout_constraintStart_toStartOf="@+id/settings_status"
+        app:layout_constraintTop_toBottomOf="@+id/settings_image"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/settings_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="317dp"
-        android:text="@string/hi_there_this_is_a_custom_text" />
+        android:layout_marginStart="110dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginRight="110dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/hi_there_this_is_a_custom_text"
+        app:layout_constraintBottom_toTopOf="@+id/setttings_image_btn"
+        app:layout_constraintEnd_toEndOf="@+id/setttings_image_btn"
+        app:layout_constraintStart_toStartOf="@+id/setttings_image_btn" />
 
     <Button
         android:id="@+id/setttings_image_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="120dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginLeft="141dp"
+        android:layout_marginEnd="142dp"
+        android:layout_marginRight="142dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/change_image"
-        android:textAllCaps="true" />
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toTopOf="@+id/settings_status_btn"
+        app:layout_constraintEnd_toEndOf="@+id/settings_status_btn"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/settings_status_btn" />
 
     <Button
         android:id="@+id/settings_status_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginEnd="134dp"
+        android:layout_marginRight="134dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/change_status"
-        android:textAllCaps="true" />
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
     <!--   unused namespace-->
