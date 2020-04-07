@@ -38,7 +38,7 @@
 
  import de.hdodenhof.circleimageview.CircleImageView;
  import id.zelory.compressor.Compressor;
-
+//hello
 
  public class SettingsActivity extends AppCompatActivity {
      public static final int CAMERA_REQUEST = 2;

@@ -1,5 +1,6 @@
 package com.example.sos;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class UsersActivity extends AppCompatActivity {
@@ -76,6 +80,7 @@ public class UsersActivity extends AppCompatActivity {
                 //We want to passe the name of the user it will get that name and than will stored in layout (user_single_layout.xml -> display_name)
                 holder.setName(model.getName());
                 holder.setUserStatus(model.getStatus());
+                holder.setUserImage(model.getThumbImage(), getApplicationContext());
             }
 
         };
@@ -101,6 +106,11 @@ public class UsersActivity extends AppCompatActivity {
         public void setUserStatus(String userStatus) {
             TextView userStatusView = mView.findViewById(R.id.user_single_status);
             userStatusView.setText(userStatus);
+        }
+
+        public void setUserImage(String thumb_image, Context context) {
+            CircleImageView userImageView = mView.findViewById(R.id.user_single_image);
+            Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(userImageView);
         }
     }
 }

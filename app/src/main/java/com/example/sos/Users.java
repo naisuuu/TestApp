@@ -1,19 +1,29 @@
 package com.example.sos;
-
 public class Users {
 
     public String name;
     public String image;
     public String status;
+    public String thumb_image;
 
-    public Users(){
+
+    public Users(String name, String image, String status, String thumb) {
+        this.name = name;
+        this.thumb_image = thumb;
+        this.image = image;
+        this.status = status;
+    }
+
+    public Users() {
 
     }
 
-    public Users(String name, String image, String status) {
-        this.name = name;
-        this.image = image;
-        this.status = status;
+    public String getThumbImage() {
+        return thumb_image;
+    }
+
+    public void setThumbImage(String thumb) {
+        this.thumb_image = thumb;
     }
 
 
