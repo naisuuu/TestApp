@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="?android:attr/colorFocusedHighlight"
     tools:context="com.example.sos.RegisterActivity">
+
 
 
     <TextView
