@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
-    private TextView mProfileName,mProfileStatus,mProfileFriendsCount;
+    private TextView mProfileName, mProfileStatus, mProfileFriendsCount;
     private Button mProfileSendReqBtn;
 
     private DatabaseReference mUsersDatabase;
@@ -186,6 +186,5 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-            }
-
+}
 
