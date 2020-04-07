@@ -18,4 +18,6 @@
     <string name="change_image">change image</string>
     <string name="change_status">change status</string>
     <string name="user_default_status">user default status</string>
+    <string name="decline_friend_request">decline friend request</string>
+    <string name="total_friends">Total Friends</string>
 </resources>

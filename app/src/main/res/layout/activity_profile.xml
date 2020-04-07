@@ -11,9 +11,16 @@
         android:id="@+id/profile_displayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/profile_totalFriends"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="51dp"
+
+        android:layout_below="@+id/profile_image"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_centerInParent="true"
+        android:layout_marginTop="-312dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginRight="112dp"
         android:text="Display Name"
         android:textSize="30dp" />
 
@@ -21,46 +28,47 @@
         android:id="@+id/profile_send_req_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp"
-        android:text="SEND FRIEND REQUEST" />
+        android:layout_marginBottom="11dp"
+        android:text="send friend request" />
 
     <TextView
         android:id="@+id/profile_status"
-        android:layout_width="wrap_content"
-        android:layout_height="198dp"
-        android:layout_below="@+id/profile_image"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-36dp"
-        android:layout_marginBottom="36dp"
-        android:text="Current User Status" />
+        android:layout_width="212dp"
+        android:layout_height="49dp"
+        android:layout_above="@+id/profile_totalFriends"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="113dp"
+        android:text="Current User Status"
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="407dp"
-        android:layout_height="255dp"
+        android:layout_width="match_parent"
+        android:layout_height="257dp"
+        android:layout_above="@+id/profile_send_req_btn"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="308dp"
         app:srcCompat="@drawable/default_avatar" />
 
     <TextView
         android:id="@+id/profile_totalFriends"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/profile_send_req_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="146dp"
-        android:text="Total Friends" />
+        android:layout_marginBottom="38dp"
+        android:text="@string/total_friends" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="165dp"
         android:layout_height="62dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="76dp"
-        android:text="DECLINE FREIND REQUEST" />
+        android:layout_marginBottom="42dp"
+        android:text="@string/decline_friend_request" />
 
 </RelativeLayout>
