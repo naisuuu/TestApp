@@ -1,8 +1,5 @@
 package com.example.sos;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -53,11 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
         mCurrent_user = FirebaseAuth.getInstance().getCurrentUser();
 
-        mProfileImage = (ImageView) findViewById(R.id.profile_image);
-        mProfileName = (TextView) findViewById(R.id.profile_displayName);
-        mProfileFriendsCount = (TextView) findViewById(R.id.profile_totalFriends);
-        mProfileStatus = (TextView) findViewById(R.id.profile_status);
-        mProfileSendReqBtn = (Button) findViewById(R.id.profile_send_req_btn);
+        mProfileImage = findViewById(R.id.profile_image);
+        mProfileName = findViewById(R.id.profile_displayName);
+        mProfileFriendsCount = findViewById(R.id.profile_totalFriends);
+        mProfileStatus = findViewById(R.id.profile_status);
+        mProfileSendReqBtn = findViewById(R.id.profile_send_req_btn);
 
         mCurrent_state = "not_friends";
 
@@ -178,7 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     mProfileSendReqBtn.setEnabled(true);
                                     mCurrent_state = "not_Friends";
-                                    mProfileSendReqBtn.setText("Sent Freind Request");
+                                    mProfileSendReqBtn.setText("Sent Friend Request");
                                 }
                             });
                         }
