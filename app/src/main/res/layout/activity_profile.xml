@@ -11,18 +11,19 @@
         android:id="@+id/profile_displayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_below="@+id/profile_image"
-
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="115dp"
+        android:layout_marginLeft="115dp"
         android:layout_marginTop="-312dp"
         android:layout_marginEnd="112dp"
         android:layout_marginRight="112dp"
-        android:text="Display Name"
-        android:textSize="30dp" />
+        android:text="@string/display_name"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/profile_send_req_btn"
@@ -31,19 +32,27 @@
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="11dp"
-        android:text="send friend request" />
+        android:text="@string/send_friend_request" />
 
     <TextView
         android:id="@+id/profile_status"
         android:layout_width="212dp"
         android:layout_height="49dp"
         android:layout_above="@+id/profile_totalFriends"
-        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginLeft="99dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
         android:layout_marginBottom="113dp"
-        android:text="Current User Status"
+        android:text="@string/user_default_status"
         android:textSize="20sp" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="match_parent"
         android:layout_height="257dp"

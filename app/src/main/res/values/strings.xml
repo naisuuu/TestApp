@@ -20,4 +20,6 @@
     <string name="user_default_status">user default status</string>
     <string name="decline_friend_request">decline friend request</string>
     <string name="total_friends">Total Friends</string>
+    <string name="send_friend_request">send friend request</string>
+    <string name="current_user_status">Current User Status</string>
 </resources>
