@@ -23,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
@@ -32,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mUsersDatabase;
 
     private DatabaseReference mFriendReqDatabase;
+    private DatabaseReference mFriendDatabase;
 
     private ProgressDialog mProgressDialog;
 
@@ -48,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
+        mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mCurrent_user = FirebaseAuth.getInstance().getCurrentUser();
 
         mProfileImage = findViewById(R.id.profile_image);
@@ -102,11 +107,35 @@ public class ProfileActivity extends AppCompatActivity {
                                     mProfileSendReqBtn.setText("Cancel Friend Request");
                                 }
                             }
+
+                            mProgressDialog.dismiss();
+                        } else {
+
+                            mFriendDatabase.child(mCurrent_user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.hasChild(user_id)) {
+
+                                        mCurrent_state = "friends";
+                                        mProfileSendReqBtn.setText("Unfriend");
+                                    }
+
+                                    mProgressDialog.dismiss();
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    mProgressDialog.dismiss();
+                                }
+                            });
+
                         }
                         mProgressDialog.dismiss();
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
+                        mProgressDialog.dismiss();
                     }
                 });
             }
@@ -130,7 +159,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         .setValue("received").addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        mProfileSendReqBtn.setEnabled(true);
+
                                         mCurrent_state = "req_sent";
                                         mProfileSendReqBtn.setText("Cancel Friend Request");
                                         //Toast.makeText(ProfileActivity.this, "Request Sent Successfully", Toast.LENGTH_SHORT).show();
@@ -141,6 +170,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 Toast.makeText(ProfileActivity.this, "Failed Sending Request", Toast.LENGTH_SHORT).show();
                             }
+                            mProfileSendReqBtn.setEnabled(true);
                         }
                     });
                 }
@@ -162,6 +192,40 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                // ----------- REQ RECEIVED STATE -----------
+                if (mCurrent_state.equals("req_received")) {
+
+                    final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+
+                    mFriendDatabase.child(mCurrent_user.getUid()).child(user_id).setValue(currentDate)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    mFriendDatabase.child(user_id).child(mCurrent_user.getUid()).setValue(currentDate)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    mFriendReqDatabase.child(mCurrent_user.getUid()).child(user_id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            mFriendReqDatabase.child(user_id).child(mCurrent_user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+
+                                                                    mProfileSendReqBtn.setEnabled(true);
+                                                                    mCurrent_state = "friends";
+                                                                    mProfileSendReqBtn.setText("Unfriend");
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                }
+                            });
+                }
+
             }
         });
     }
