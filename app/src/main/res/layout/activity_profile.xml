@@ -16,14 +16,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:layout_marginStart="115dp"
         android:layout_marginLeft="115dp"
         android:layout_marginTop="-312dp"
         android:layout_marginEnd="112dp"
         android:layout_marginRight="112dp"
-        android:text="@string/display_name"
-        android:textSize="30sp" />
+        android:text="Display Name  "
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/profile_send_req_btn"
@@ -43,12 +44,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="99dp"
-        android:layout_marginLeft="99dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginBottom="113dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginRight="95dp"
+        android:layout_marginBottom="81dp"
         android:text="@string/user_default_status"
         android:textSize="20sp" />
 
@@ -57,9 +58,13 @@
         android:layout_width="match_parent"
         android:layout_height="257dp"
         android:layout_above="@+id/profile_send_req_btn"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="308dp"
+        android:layout_alignParenright="true"
+        android:layout_marginleft="1dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="318dp"
         app:srcCompat="@drawable/default_avatar" />
 
     <TextView
