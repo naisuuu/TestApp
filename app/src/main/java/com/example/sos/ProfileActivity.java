@@ -30,11 +30,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
     private TextView mProfileName,mProfileStatus,mProfileFriendsCount;
-    private Button mProfileSendReqBtn;
+    private Button mProfileSendReqBtn,mProfileDeclineBtn;
 
     private DatabaseReference mUsersDatabase;
 
     private DatabaseReference mFriendReqDatabase;
+
+    private DatabaseReference mFriendDatabase;
 
     private ProgressDialog mProgressDialog;
 
@@ -51,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
+        mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mCurrent_user = FirebaseAuth.getInstance().getCurrentUser();
 
         mProfileImage = (ImageView) findViewById(R.id.profile_image);
@@ -58,6 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileFriendsCount = (TextView) findViewById(R.id.profile_totalFriends);
         mProfileStatus = (TextView) findViewById(R.id.profile_status);
         mProfileSendReqBtn = (Button) findViewById(R.id.profile_send_req_btn);
+        mProfileDeclineBtn = (Button) findViewById(R.id.profile_decline_btn) ;
 
         mCurrent_state = "not_friends";
 
@@ -97,13 +101,35 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 mCurrent_state = "req_received";
                                 mProfileSendReqBtn.setText("Accept Friend Request");
+                                mProfileDeclineBtn.setVisibility(View.VISIBLE);
+                                mProfileDeclineBtn.setEnabled(true);
+
 
                             }else{
                                 if(req_type.equals("sent")){
                                     mCurrent_state ="req_sent";
                                     mProfileSendReqBtn.setText("Cancel Friend Request");
+                                    mProfileDeclineBtn.setVisibility(View.INVISIBLE);
+                                    mProfileDeclineBtn.setEnabled(false);
+
                                 }
                             }
+
+                            } else{
+
+                            mFriendDatabase.child(mCurrent_user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    if(dataSnapshot.hasChild(user_id)){
+
+                                        mCurrent_state = "friends";
+                                        mProfileSendReqBtn.setText("Unfriend this Person");
+
+                                        mProfileDeclineBtn.setVisibility(View.INVISIBLE);
+                                        mProfileDeclineBtn.setEnabled(false);
+                            }
+
 
                         }
 
