@@ -22,7 +22,7 @@
         android:layout_marginTop="-312dp"
         android:layout_marginEnd="112dp"
         android:layout_marginRight="112dp"
-        android:text="Display Name  "
+        android:text="Display Name "
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -58,12 +58,11 @@
         android:layout_width="match_parent"
         android:layout_height="257dp"
         android:layout_above="@+id/profile_send_req_btn"
-        android:layout_alignParentLeft="true"
+
         android:layout_alignParentTop="true"
-        android:layout_alignParenright="true"
-        android:layout_marginleft="1dp"
+
         android:layout_marginTop="-8dp"
-        android:layout_marginRight="3dp"
+
         android:layout_marginBottom="318dp"
         app:srcCompat="@drawable/default_avatar" />
 
