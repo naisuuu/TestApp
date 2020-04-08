@@ -8,7 +8,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.RemoteMessage;
 
 /**
- * Created by AkshayeJH on 13/07/17.
+
  */
 
 public class MyFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
