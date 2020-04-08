@@ -63,4 +63,16 @@
         android:layout_marginBottom="76dp"
         android:text="DECLINE FREIND REQUEST" />
 
+    <Button
+        android:id="@+id/profile_decline_btn"
+        android:layout_width="179dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="119dp"
+        android:layout_marginLeft="119dp"
+        android:layout_marginBottom="12dp"
+        android:text="DECLINE FRIEND REQUEST" />
+
 </RelativeLayout>
