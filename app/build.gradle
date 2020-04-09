@@ -43,8 +43,10 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828' //for downloading images
     implementation 'com.firebaseui:firebase-ui-database:6.2.1' //  UI components for Firebase
     implementation "androidx.recyclerview:recyclerview:1.1.0"
-    // For control over item selection of both touch and mouse driven selection
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"// For control over item selection of both touch and mouse driven selection
     implementation 'id.zelory:compressor:2.0.0' // compress prof pics into thumbnails
+
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4" // for card swipe view
+    implementation 'com.google.android.material:material:1.1.0'
 
 }
