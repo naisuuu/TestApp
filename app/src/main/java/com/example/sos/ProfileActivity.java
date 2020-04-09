@@ -8,12 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -63,12 +60,12 @@ public class ProfileActivity extends AppCompatActivity {
         mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");
         mCurrent_user = FirebaseAuth.getInstance().getCurrentUser();
 
-        mProfileImage = (ImageView) findViewById(R.id.profile_image);
-        mProfileName = (TextView) findViewById(R.id.profile_displayName);
-        mProfileStatus = (TextView) findViewById(R.id.profile_status);
-        mProfileFriendsCount = (TextView) findViewById(R.id.profile_totalFriends);
-        mProfileSendReqBtn = (Button) findViewById(R.id.profile_send_req_btn);
-        mDeclineBtn = (Button) findViewById(R.id.profile_decline_btn);
+        mProfileImage = findViewById(R.id.profile_image);
+        mProfileName = findViewById(R.id.profile_displayName);
+        mProfileStatus = findViewById(R.id.profile_status);
+        mProfileFriendsCount = findViewById(R.id.profile_totalFriends);
+        mProfileSendReqBtn = findViewById(R.id.profile_send_req_btn);
+        mDeclineBtn = findViewById(R.id.profile_decline_btn);
 
 
         mCurrent_state = "not_friends";
@@ -232,12 +229,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                             mProfileSendReqBtn.setEnabled(true);
 
-
                         }
                     });
 
                 }
-
 
                 // - -------------- CANCEL REQUEST STATE ------------
 
@@ -250,24 +245,17 @@ public class ProfileActivity extends AppCompatActivity {
                             mFriendReqDatabase.child(user_id).child(mCurrent_user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-
-
                                     mProfileSendReqBtn.setEnabled(true);
                                     mCurrent_state = "not_friends";
                                     mProfileSendReqBtn.setText("Send Friend Request");
 
                                     mDeclineBtn.setVisibility(View.INVISIBLE);
                                     mDeclineBtn.setEnabled(false);
-
-
                                 }
                             });
-
                         }
                     });
-
                 }
-
 
                 // ------------ REQ RECEIVED STATE ----------
 
@@ -303,16 +291,10 @@ public class ProfileActivity extends AppCompatActivity {
                                 String error = databaseError.getMessage();
 
                                 Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
-
-
                             }
-
                         }
                     });
-
                 }
-
-
                 // ------------ UNFRIENDS ---------
 
                 if(mCurrent_state.equals("friends")){
@@ -335,27 +317,14 @@ public class ProfileActivity extends AppCompatActivity {
                                 mDeclineBtn.setEnabled(false);
 
                             } else {
-
                                 String error = databaseError.getMessage();
-
                                 Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
-
-
                             }
-
                             mProfileSendReqBtn.setEnabled(true);
-
                         }
                     });
-
                 }
-
-
             }
         });
-
-
     }
-
-
 }
