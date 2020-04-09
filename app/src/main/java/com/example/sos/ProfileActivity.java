@@ -64,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle("Loading User Data");
-        mProgressDialog.setMessage("Please wait while we load user data.");
+        mProgressDialog.setMessage("please wait while we load user data.");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
@@ -108,7 +108,6 @@ public class ProfileActivity extends AppCompatActivity {
                                 mProfileDeclineBtn.setVisibility(View.INVISIBLE);
                                 mProfileDeclineBtn.setEnabled(false);
                             }
-                            mProgressDialog.dismiss();
                         } else {
                             mFriendDatabase.child(mCurrent_user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -133,16 +132,15 @@ public class ProfileActivity extends AppCompatActivity {
                             });
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        mProgressDialog.dismiss();
                     }
                 });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                mProgressDialog.dismiss();
             }
         });
         mProfileSendReqBtn.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +181,7 @@ public class ProfileActivity extends AppCompatActivity {
                     });
                 }
                 //------------------CANCEL REQUEST STATE -----------------------------------------------------------------------------------------
-                mProgressDialog.dismiss();
+
                 if (mCurrent_state.equals("req_sent")) {
                     mFriendReqDatabase.child(mCurrent_user.getUid()).child(user_id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -193,8 +191,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
 
                                     mProfileSendReqBtn.setEnabled(true);
-                                    mCurrent_state = "not_friends";
-                                    mProfileSendReqBtn.setText("Send Freind Request");
+                                    mCurrent_state = "not_Friends";
+                                    mProfileSendReqBtn.setText("Sent Freind Request");
                                 }
                             });
                         }

@@ -120,7 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("TESTT");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Lapit Chat");
+
+
+
     }
 
     private void paginate() {
