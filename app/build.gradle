@@ -49,4 +49,6 @@ dependencies {
     implementation 'id.zelory:compressor:2.0.0' // compress prof pics into thumbnails
     implementation 'com.google.firebase:firebase-messaging:20.1.5'
     implementation 'com.google.android.gms:play-services-maps:16.0.0' // for google maps
+
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
 }
