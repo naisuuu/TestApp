@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("TESTT");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Lapit Chat");
+
+
+
     }
 
     private void sendToStart(){

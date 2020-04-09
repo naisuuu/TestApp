@@ -1,9 +1,12 @@
 package com.example.sos;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.media.Image;
@@ -16,9 +19,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,19 +43,31 @@ public class ChatActivity extends AppCompatActivity {
 
     private String mChatUser;
     private Toolbar mChatToolbar;
+
     private DatabaseReference mRootRef;
-    private FirebaseAuth mAuth;
-    private String mCurrentUserId;
+
+
 
 
     private TextView mTitleView;
     private TextView mLastSeenView;
     private CircleImageView mProfileImage;
+    private FirebaseAuth mAuth;
+    private String mCurrentUserId;
 
 
     private ImageButton mChatAddBtn;
     private ImageButton mChatSendBtn;
     private EditText mChatMessageview;
+
+    private RecyclerView mMessagesList;
+
+    private final List<Messages> messageList = new ArrayList<>();
+    private LinearLayoutManager mLinearLayout;
+    private MessageAdapter mAdpter;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +108,17 @@ public class ChatActivity extends AppCompatActivity {
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mChatMessageview = (EditText) findViewById(R.id.chat_message_view);
 
+        mAdpter = new MessageAdapter(messageList);
+
+        mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
+        mLinearLayout = new LinearLayoutManager(this);
+
+        mMessagesList.setHasFixedSize(true);
+        mMessagesList.setLayoutManager(mLinearLayout);
+
+        mMessagesList.setAdapter(mAdpter);
+
+        loadMessages();
 
 
         mTitleView.setText(userName);
@@ -140,6 +170,43 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void loadMessages() {
+
+        mRootRef.child("messages").child(mCurrentUserId).child(mChatUser).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                Messages  messages = dataSnapshot.getValue(Messages.class);
+
+                messageList.add(messages);
+                mAdpter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 
