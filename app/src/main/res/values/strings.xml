@@ -23,4 +23,5 @@
     <string name="total_friends">Total Friends</string>
     <string name="send_friend_request">send friend request</string>
     <string name="current_user_status">Current User Status</string>
+    <string name="get_current_location">Get Current Location</string>
 </resources>
