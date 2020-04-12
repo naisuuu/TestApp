@@ -70,16 +70,9 @@ public class GoogleMapAPI extends AppCompatActivity implements OnMapReadyCallbac
                     getCurrentLocation();
                     mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.textLatLong);
-                    mapFragment.getMapAsync(onMapReady(textLatLong));
                 }
             }
         });
-    }
-
-    private OnMapReadyCallback onMapReady(TextView textLatLong) {
-
-        return null;
-        //need to finish
     }
 
     @Override
