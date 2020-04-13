@@ -32,6 +32,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.places.Place;
 
@@ -70,6 +71,8 @@ public class GoogleMapAPI extends AppCompatActivity implements OnMapReadyCallbac
                     getCurrentLocation();
                     mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.textLatLong);
+                    //LatLng Current = new LatLng();
+                    //mapAPI.addMarker(new MarkerOptions().position(Current).title(textAddress));
                 }
             }
         });
