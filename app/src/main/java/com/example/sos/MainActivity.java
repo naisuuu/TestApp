@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         return carditems;
-    }
+    } //not used
 
     private void paginate() {
         List<ItemModel> old = adapter.getItems();
