@@ -151,13 +151,13 @@ public class ChatActivity extends AppCompatActivity {
                     });
 
                     //---------------Send BUTTON--------------------
-                        mChatSendBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                    mChatSendBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                                SendMessage();
-                            }
-                        });
+                            SendMessage();
+                        }
+                    });
 
 
                 }
@@ -236,7 +236,7 @@ public class ChatActivity extends AppCompatActivity {
             MessageUserMap.put(Current_user_ref + "/" + push_id, MessageMap);
             MessageMap.put(chat_user_ref + "/"+ push_id, MessageMap);
 
-           // Storing ----------------------
+            // Storing ----------------------
 
             mRootRef.updateChildren(MessageUserMap, new DatabaseReference.CompletionListener() {
                 @Override
@@ -247,7 +247,7 @@ public class ChatActivity extends AppCompatActivity {
                         Log.d("CHAT_LOG", databaseError.getMessage().toString());
 
 
-                 }
+                    }
 
                 }
             });
@@ -257,6 +257,7 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 }
+
 
 
 

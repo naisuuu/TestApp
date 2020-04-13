@@ -36,3 +36,5 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         mapAPI.moveCamera(CameraUpdateFactory.newLatLng(NCI));
     }
 }
+
+

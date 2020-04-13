@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersActivity extends AppCompatActivity {
 
+    private Button button;
+
     private Toolbar mToolbar;
 
     private RecyclerView mUsersList;
@@ -40,10 +43,29 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
+        button = (Button)findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMenuActivity();
+
+
+            }
+            public void openMenuActivity() {
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(intent);
+            }
+        });
         /// Code from video mToolbar = (Toolbar) findViewById(R.id.user_appBar);
         ///                 mUsersList = (RecyclerView) findViewById(R.id.users_list);
 
+
         mToolbar = findViewById(R.id.users_appBar);
+
+
+
+
+
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setTitle("All Users");
@@ -54,6 +76,7 @@ public class UsersActivity extends AppCompatActivity {
         mUsersList = findViewById(R.id.users_list);
         mUsersList.setHasFixedSize(true);
         mUsersList.setLayoutManager(new LinearLayoutManager(this));
+
 
     }
 
@@ -127,4 +150,8 @@ public class UsersActivity extends AppCompatActivity {
             Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(userImageView);
         }
     }
+
+
+
+
 }
