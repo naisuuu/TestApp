@@ -1,26 +1,20 @@
 package com.example.sos;
 
 public class ItemModel {
-    private int image;
-    private String name, age, city;
+    public String name;
+    public String image;
+    public String status;
+    public String thumb_image;
 
     public ItemModel() {
 
     }
 
-    public ItemModel(int image, String name, String age, String city) {
-        this.image = image;
+    public ItemModel(String name, String image, String status, String thumb_image) {
         this.name = name;
-        this.age = age;
-        this.city = city;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
         this.image = image;
+        this.status = status;
+        this.thumb_image = thumb_image;
     }
 
     public String getName() {
@@ -31,19 +25,27 @@ public class ItemModel {
         this.name = name;
     }
 
-    public String getAge() {
-        return age;
+    public String getImage() {
+        return image;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getCity() {
-        return city;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getThumb_image() {
+        return thumb_image;
+    }
+
+    public void setThumb_image(String thumb_image) {
+        this.thumb_image = thumb_image;
     }
 }

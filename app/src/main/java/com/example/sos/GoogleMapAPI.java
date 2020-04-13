@@ -1,13 +1,6 @@
 package com.example.sos;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -20,21 +13,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.PlaceReport;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.location.places.Place;
 
 
 public class GoogleMapAPI extends AppCompatActivity implements OnMapReadyCallback {
@@ -69,10 +59,44 @@ public class GoogleMapAPI extends AppCompatActivity implements OnMapReadyCallbac
                     );
                 } else {
                     getCurrentLocation();
+                    final LocationRequest locationRequest = new LocationRequest();
+                    locationRequest.setInterval(10000);
+                    locationRequest.setFastestInterval(3000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                     mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.textLatLong);
-                    //LatLng Current = new LatLng();
-                    //mapAPI.addMarker(new MarkerOptions().position(Current).title(textAddress));
+                    LocationServices.getFusedLocationProviderClient(GoogleMapAPI.this)
+                            .requestLocationUpdates(locationRequest, new LocationCallback() {
+                                @Override
+                                public void onLocationResult(LocationResult locationResult) {
+                                    super.onLocationResult(locationResult);
+                                    LocationServices.getFusedLocationProviderClient(GoogleMapAPI.this)
+                                            .removeLocationUpdates(this);
+                                    if (locationResult != null && locationResult.getLocations().size() > 0) {
+                                        int latestLocationIndex = locationResult.getLocations().size() - 1;
+                                        double latitude =
+                                                locationResult.getLocations().get(latestLocationIndex).getLatitude();
+                                        double longitude =
+                                                locationResult.getLocations().get(latestLocationIndex).getLongitude();
+                                        textLatLong.setText(
+                                                String.format(
+                                                        "latitude: %s\nLongitude: %s\n",
+                                                        latitude,
+                                                        longitude
+                                                )
+                                        );
+                                        Location location = new Location("providerNA");
+                                        location.setLatitude(latitude);
+                                        location.setLongitude(longitude);
+                                        fetchAddressFromLatLong(location);
+                                    } else {
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+
+                            }, Looper.getMainLooper());
+
+
                 }
             }
         });
@@ -96,7 +120,7 @@ public class GoogleMapAPI extends AppCompatActivity implements OnMapReadyCallbac
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(3000);
-        locationRequest.setPriority(locationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         LocationServices.getFusedLocationProviderClient(GoogleMapAPI.this)
                 .requestLocationUpdates(locationRequest, new LocationCallback() {

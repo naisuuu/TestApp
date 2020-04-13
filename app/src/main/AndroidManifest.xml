@@ -28,7 +28,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
-        <activity android:name=".GoogleMapAPI"></activity>
+        <!--activity android:name=".GoogleMapAPI"></activity-->
 
         <activity android:name=".ChatActivity" />
         <activity android:name=".ProfileActivity" />
