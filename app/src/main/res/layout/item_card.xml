@@ -34,7 +34,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/item_age"
+            android:id="@+id/item_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
@@ -42,7 +42,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/item_city"
+            android:id="@+id/item_thumb_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"

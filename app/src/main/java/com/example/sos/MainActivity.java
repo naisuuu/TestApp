@@ -1,25 +1,40 @@
 package com.example.sos;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -33,10 +48,15 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private DatabaseReference mUserDatabase;
+
+    private ImageView mItemImage;
+    private TextView mItemName, mItemStatus;
     private static final String TAG = "MainActivity";
     private CardStackLayoutManager manager;
     private CardStackAdapter adapter;
-
+    private CardStackView cardStackView;
     Button btnLogOut;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -48,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        CardStackView cardStackView = findViewById(R.id.card_stack_view);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        cardStackView = findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
             public void onCardDragging(Direction direction, float ratio) {
@@ -115,17 +137,93 @@ public class MainActivity extends AppCompatActivity {
         manager.setOverlayInterpolator(new LinearInterpolator());
         adapter = new CardStackAdapter(addList());
         cardStackView.setLayoutManager(manager);
-        cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
 
 
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Lapit Chat");
-
+        Objects.requireNonNull(getSupportActionBar()).setTitle("SOS");
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        FirebaseRecyclerOptions<ItemModel> options =
+                new FirebaseRecyclerOptions.Builder<ItemModel>()
+                        .setQuery(mUserDatabase, ItemModel.class)
+                        .setLifecycleOwner(this)
+                        .build();
+
+
+        FirebaseRecyclerAdapter<ItemModel, MainActivity.UsersViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemModel, MainActivity.UsersViewHolder>(options) {
+            @NonNull
+            @Override
+            public MainActivity.UsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return new MainActivity.UsersViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_card, parent, false));
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull MainActivity.UsersViewHolder holder, int position, @NonNull ItemModel model) {
+                //We want to passe the name of the user it will get that name and than will stored in layout (user_single_layout.xml -> display_name)
+                holder.setName(model.getName());
+                holder.setUserStatus(model.getStatus());
+                holder.setUserImage(model.getThumb_image(), getApplicationContext());
+
+                final String user_id = getRef(position).getKey();
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                        profileIntent.putExtra("user_id", user_id);
+                        Log.d(user_id, "onClick: ");
+                        startActivity(profileIntent);
+                    }
+                });
+            }
+
+        };
+        cardStackView.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    private List<ItemModel> addList() {
+        final List<ItemModel> carditems = new ArrayList<>();
+        mUserDatabase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                ItemModel object = dataSnapshot.getValue(ItemModel.class);
+                carditems.add(object);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        return carditems;
+    } //not used
 
     private void paginate() {
         List<ItemModel> old = adapter.getItems();
@@ -136,34 +234,6 @@ public class MainActivity extends AppCompatActivity {
         result.dispatchUpdatesTo(adapter);
     }
 
-
-    private List<ItemModel> addList() {
-        List<ItemModel> items = new ArrayList<>();
-        items.add(new ItemModel(R.drawable.default_avatar, "Alison", "50", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "CJ", "20", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "David", "41", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "Jake", "35", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "Jessica", "60", "Dublin"));
-
-        items.add(new ItemModel(R.drawable.default_avatar, "Alison", "50", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "CJ", "20", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "David", "41", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "Jake", "35", "Dublin"));
-        items.add(new ItemModel(R.drawable.default_avatar, "Jessica", "60", "Dublin"));
-        return items;
-    }
-
-    private void sendToStart(){
-        FirebaseAuth.getInstance().signOut();
-        Intent I = new Intent(MainActivity.this, ActivityLogin.class);
-        startActivity(I);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-       super.onCreateOptionsMenu(menu);
-       getMenuInflater().inflate(R.menu.main_menu, menu);
-       return true;
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         super.onOptionsItemSelected(item);
@@ -195,6 +265,52 @@ public class MainActivity extends AppCompatActivity {
             Intent settingsIntent = new Intent(MainActivity.this, ChatActivity.class);
             startActivity(settingsIntent);
         }
+
+
         return true;
+    }
+
+    private void sendToStart() {
+        FirebaseAuth.getInstance().signOut();
+        Intent I = new Intent(MainActivity.this, ActivityLogin.class);
+        startActivity(I);
+    }
+
+
+    // End of Card Swipe View
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    public static class UsersViewHolder extends RecyclerView.ViewHolder { //Don't forget "static "
+
+        //We need a view then be used by firebase adapter
+        View mView;
+
+
+        public UsersViewHolder(View itemView) {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setName(String name) {
+            TextView userNameView = mView.findViewById(R.id.item_name);
+            userNameView.setText(name);
+        }
+
+        public void setUserStatus(String userStatus) {
+            TextView userStatusView = mView.findViewById(R.id.item_status);
+            userStatusView.setText(userStatus);
+        }
+
+        public void setUserImage(String thumb_image, Context context) {
+            ImageView userImageView = mView.findViewById(R.id.item_image);
+            Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(userImageView);
+        }
     }
 }
