@@ -26,7 +26,7 @@ public class FetchAddressIntentService extends IntentService {
         super("FetchAddressIntentService");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 

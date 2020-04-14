@@ -179,10 +179,11 @@ public class MainActivity extends AppCompatActivity {
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
-                        profileIntent.putExtra("user_id", user_id);
-                        Log.d(user_id, "onClick: ");
-                        startActivity(profileIntent);
+                        //Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                        //take on comment the line above because a error comes from it
+                        //profileIntent.putExtra("user_id", user_id);
+                        //Log.d(user_id, "onClick: ");
+                        //startActivity(profileIntent);
                     }
                 });
             }

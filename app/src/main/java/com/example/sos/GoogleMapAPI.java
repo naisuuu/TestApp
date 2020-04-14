@@ -59,46 +59,11 @@ public class GoogleMapAPI extends AppCompatActivity implements OnMapReadyCallbac
                     );
                 } else {
                     getCurrentLocation();
-                    final LocationRequest locationRequest = new LocationRequest();
-                    locationRequest.setInterval(10000);
-                    locationRequest.setFastestInterval(3000);
-                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                    mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                            .findFragmentById(R.id.textLatLong);
-                    LocationServices.getFusedLocationProviderClient(GoogleMapAPI.this)
-                            .requestLocationUpdates(locationRequest, new LocationCallback() {
-                                @Override
-                                public void onLocationResult(LocationResult locationResult) {
-                                    super.onLocationResult(locationResult);
-                                    LocationServices.getFusedLocationProviderClient(GoogleMapAPI.this)
-                                            .removeLocationUpdates(this);
-                                    if (locationResult != null && locationResult.getLocations().size() > 0) {
-                                        int latestLocationIndex = locationResult.getLocations().size() - 1;
-                                        double latitude =
-                                                locationResult.getLocations().get(latestLocationIndex).getLatitude();
-                                        double longitude =
-                                                locationResult.getLocations().get(latestLocationIndex).getLongitude();
-                                        textLatLong.setText(
-                                                String.format(
-                                                        "latitude: %s\nLongitude: %s\n",
-                                                        latitude,
-                                                        longitude
-                                                )
-                                        );
-                                        Location location = new Location("providerNA");
-                                        location.setLatitude(latitude);
-                                        location.setLongitude(longitude);
-                                        fetchAddressFromLatLong(location);
-                                    } else {
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
 
-                            }, Looper.getMainLooper());
-
-
+                    mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.textLatLong);
                 }
             }
+
         });
     }
 
