@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        Rewind = findViewById(R.id.card_stack_rewind_btn);
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         cardStackView = findViewById(R.id.card_stack_view);
