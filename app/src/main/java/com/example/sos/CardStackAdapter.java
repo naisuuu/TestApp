@@ -56,6 +56,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             name = itemView.findViewById(R.id.item_name);
             status = itemView.findViewById(R.id.item_status);
             thumb_image = itemView.findViewById(R.id.item_thumb_image);
+
         }
 
         void setData(ItemModel data) {

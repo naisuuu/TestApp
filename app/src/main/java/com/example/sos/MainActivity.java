@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //Paginating
-                if (manager.getTopPosition() == adapter.getItemCount() - 5) {
+                if (manager.getTopPosition() == adapter.getItemCount()) {
                     paginate();
                 }
 
@@ -247,13 +247,13 @@ public class MainActivity extends AppCompatActivity {
             Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(settingsIntent);
         }
-
+/*
         if(item.getItemId()==R.id.main_all_btn){
 
             Intent settingsIntent = new Intent(MainActivity.this, UsersActivity.class);
             startActivity(settingsIntent);
         }
-
+*/
         if(item.getItemId()==R.id.main_map_btn){
 
             Intent settingsIntent = new Intent( MainActivity.this, GoogleMapAPI.class);

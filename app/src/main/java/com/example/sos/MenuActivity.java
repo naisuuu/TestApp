@@ -1,12 +1,5 @@
 package com.example.sos;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,13 +7,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
-;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -43,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
+        mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Lapit Chat");
 
@@ -56,12 +55,12 @@ public class MenuActivity extends AppCompatActivity {
 
 
         //Tabs
-        mViewPager = (ViewPager) findViewById(R.id.main_tabPager);
+        mViewPager = findViewById(R.id.main_tabPager);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
+        mTabLayout = findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
 
 
@@ -141,12 +140,12 @@ public class MenuActivity extends AppCompatActivity {
 
         }
 
-        if(item.getItemId() == R.id.main_all_btn){
+        /*if(item.getItemId() == R.id.main_all_btn){
 
             Intent settingsIntent = new Intent(MenuActivity.this, UsersActivity.class);
             startActivity(settingsIntent);
 
-        }
+        }*/
 
         return true;
     }
