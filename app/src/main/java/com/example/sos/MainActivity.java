@@ -39,8 +39,6 @@ import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
-import com.yuyakaido.android.cardstackview.Duration;
-import com.yuyakaido.android.cardstackview.RewindAnimationSetting;
 import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
@@ -150,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("SOS");
 
-        Rewind.setOnClickListener(new View.OnClickListener() {
+        /*Rewind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RewindAnimationSetting setting = new RewindAnimationSetting.Builder()
@@ -161,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
                 cardStackView.rewind();
             }
         });
+
+         */
     }
 
     @Override
