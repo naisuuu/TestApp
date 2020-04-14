@@ -25,4 +25,34 @@
     <string name="current_user_status">Current User Status</string>
     <string name="get_current_location">Get Current Location</string>
     <string name="chat_btn">Chat</string>
+    <string name="rewind">Rewind</string>
+    <string-array name="instruments">
+        <item></item>
+        <item>Bagpipes</item>
+        <item>Bass</item>
+        <item>Bass Guitar</item>
+        <item>Bodhrán</item>
+        <item>Bongo</item>
+        <item>Cello</item>
+        <item>Clarinet</item>
+        <item>Drums</item>
+        <item>Electric Guitar</item>
+        <item>Guitar</item>
+        <item>Harp</item>
+        <item>Organ</item>
+        <item>Piano</item>
+        <item>Piccolo</item>
+        <item>Producer</item>
+        <item>Recorder</item>
+        <item>Saxophone</item>
+        <item>Tin Whistle</item>
+        <item>Trumpet</item>
+        <item>Tuba</item>
+        <item>Uilleann Pipes</item>
+        <item>Ukulele</item>
+        <item>Viola</item>
+        <item>Vilion</item>
+        <item>Vocals</item>
+        <item>Xylophone</item>
+    </string-array>
 </resources>

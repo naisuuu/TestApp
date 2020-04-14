@@ -48,14 +48,14 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView name, status, thumb_image;
+        TextView name, status, instrument;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.item_image);
             name = itemView.findViewById(R.id.item_name);
             status = itemView.findViewById(R.id.item_status);
-            thumb_image = itemView.findViewById(R.id.item_thumb_image);
+            instrument = itemView.findViewById(R.id.item_instrument);
 
         }
 
@@ -67,7 +67,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
                     .into(image);
             name.setText(data.getName());
             status.setText(data.getStatus());
-            thumb_image.setText(data.getThumb_image());
+            instrument.setText(data.getThumb_image());
         }
     }
 }

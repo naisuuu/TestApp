@@ -5,6 +5,15 @@ public class ItemModel {
     public String image;
     public String status;
     public String thumb_image;
+    public String instrument;
+
+    public String getInstrument() {
+        return instrument;
+    }
+
+    public void setInstrument(String instrument) {
+        this.instrument = instrument;
+    }
 
     public ItemModel() {
 

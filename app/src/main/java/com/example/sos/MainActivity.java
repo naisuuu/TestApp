@@ -39,6 +39,8 @@ import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
+import com.yuyakaido.android.cardstackview.Duration;
+import com.yuyakaido.android.cardstackview.RewindAnimationSetting;
 import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private DatabaseReference mUserDatabase;
-
+    private Button Rewind;
     private ImageView mItemImage;
     private TextView mItemName, mItemStatus;
     private static final String TAG = "MainActivity";
@@ -62,12 +64,15 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private Toolbar mToolbar;
 
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
+        Rewind = findViewById(R.id.card_stack_rewind_btn);
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         cardStackView = findViewById(R.id.card_stack_view);
@@ -83,13 +88,15 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (direction) {
                     case Right:
+
                         Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_LONG).show();
                         break;
                     case Left:
                         Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_LONG).show();
                         break;
                     case Top:
-                        Toast.makeText(MainActivity.this, "Top", Toast.LENGTH_LONG).show();
+                        cardStackView.rewind();
+                        Toast.makeText(MainActivity.this, "Rewinding...", Toast.LENGTH_LONG).show();
                         break;
                     case Bottom:
                         Toast.makeText(MainActivity.this, "Bottom", Toast.LENGTH_LONG).show();
@@ -125,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onCardAppeared: " + position + ", name: " + tv.getText());
             }
         });
-        manager.setStackFrom(StackFrom.None);
+        manager.setStackFrom(StackFrom.Top);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(8.0f);
         manager.setScaleInterval(0.95f);
@@ -144,7 +151,17 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("SOS");
 
-
+        Rewind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RewindAnimationSetting setting = new RewindAnimationSetting.Builder()
+                        .setDirection(Direction.Bottom)
+                        .setDuration(Duration.Normal.duration)
+                        .build();
+                manager.setRewindAnimationSetting(setting);
+                cardStackView.rewind();
+            }
+        });
     }
 
     @Override
@@ -173,17 +190,18 @@ public class MainActivity extends AppCompatActivity {
                 holder.setName(model.getName());
                 holder.setUserStatus(model.getStatus());
                 holder.setUserImage(model.getThumb_image(), getApplicationContext());
+                holder.setUserInstrument(model.getInstrument());
+
 
                 final String user_id = getRef(position).getKey();
 
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
-                        //take on comment the line above because a error comes from it
-                        //profileIntent.putExtra("user_id", user_id);
-                        //Log.d(user_id, "onClick: ");
-                        //startActivity(profileIntent);
+                        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                        profileIntent.putExtra("user_id", user_id);
+                        Log.d(user_id, "onClick: ");
+                        startActivity(profileIntent);
                     }
                 });
             }
@@ -312,6 +330,11 @@ public class MainActivity extends AppCompatActivity {
         public void setUserImage(String thumb_image, Context context) {
             ImageView userImageView = mView.findViewById(R.id.item_image);
             Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(userImageView);
+        }
+
+        public void setUserInstrument(String instrument) {
+            TextView userInstrumentView = mView.findViewById(R.id.item_instrument);
+            userInstrumentView.setText(instrument);
         }
     }
 }

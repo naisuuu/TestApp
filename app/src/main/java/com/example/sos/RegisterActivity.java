@@ -4,8 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,19 +25,24 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public EditText emailId, passwd, mdisplay_name;
     Button btnSignUp;
     TextView signIn;
     FirebaseAuth firebaseAuth;
     private ProgressDialog mRegProgress;
-
+    String instrument;
     private DatabaseReference mDatabase;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(this, R.array.instruments, android.R.layout.simple_spinner_item);
+        sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(sAdapter);
         firebaseAuth = FirebaseAuth.getInstance();
         mdisplay_name = findViewById(R.id.ETdisplayname);
         emailId = findViewById(R.id.ETemail);
@@ -48,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailID = emailId.getText().toString();
                 String paswd = passwd.getText().toString();
                 String dispname = mdisplay_name.getText().toString();
+                String inst = spinner.getSelectedItem().toString();
 
                 if (emailID.isEmpty() && paswd.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
@@ -56,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mRegProgress.setMessage("Please wait while we create your account");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
-                    registerUser(dispname,emailID, paswd);
+                    registerUser(dispname, emailID, paswd, inst);
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
@@ -71,13 +80,14 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    public void registerUser(final String display_name, String email, String password){
+
+    public void registerUser(final String display_name, String email, String password, final String instrument) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
 
                 if (task.isSuccessful()) {
-                    FirebaseUser current_user= FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                     String uid = current_user.getUid();
 
                     mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
@@ -87,17 +97,18 @@ public class RegisterActivity extends AppCompatActivity {
                     HashMap<String, String> userMap = new HashMap<>();
                     userMap.put("name", display_name);
                     userMap.put("status", "Hi there i'm using SoS chat app");
-                    userMap.put("image",     "default");
+                    userMap.put("image", "default");
                     userMap.put("thumb_image", "default");
+                    userMap.put("instrument", instrument);
 
                     mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 mRegProgress.setMessage("Successfully created account!");
                                 mRegProgress.dismiss();
                                 Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
-                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(mainIntent);
                                 finish();
                             }
@@ -114,5 +125,15 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        instrument = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
