@@ -45,6 +45,13 @@
         android:spinnerMode="dropdown" />
 
     <EditText
+        android:id="@+id/ETgenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="@string/genre" />
+
+    <EditText
         android:id="@+id/ETemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

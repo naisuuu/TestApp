@@ -26,7 +26,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    public EditText emailId, passwd, mdisplay_name;
+    public EditText emailId, passwd, mdisplay_name, mGenre;
     Button btnSignUp;
     TextView signIn;
     FirebaseAuth firebaseAuth;
@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         mdisplay_name = findViewById(R.id.ETdisplayname);
         emailId = findViewById(R.id.ETemail);
         passwd = findViewById(R.id.ETpassword);
+        mGenre = findViewById(R.id.ETgenre);
         btnSignUp = findViewById(R.id.btnSignUp);
         signIn = findViewById(R.id.TVSignIn);
         mRegProgress = new ProgressDialog(this);
@@ -66,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 String trum = spinner1.getSelectedItem().toString();
                 String ents = spinner2.getSelectedItem().toString();
                 String instruments = ins + "|" + trum + "|" + ents;
-
+                String genre = mGenre.getText().toString();
                 if (emailID.isEmpty() && paswd.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
                 } else if (!(emailID.isEmpty() && paswd.isEmpty())) {
@@ -74,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     mRegProgress.setMessage("Please wait while we create your account");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
-                    registerUser(dispname, emailID, paswd, instruments);
+                    registerUser(dispname, emailID, paswd, instruments, genre);
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
@@ -90,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         });
     }
 
-    public void registerUser(final String display_name, String email, String password, final String instrument) {
+    public void registerUser(final String display_name, String email, String password, final String instrument, final String genre) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
@@ -109,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     userMap.put("image", "default");
                     userMap.put("thumb_image", "default");
                     userMap.put("instrument", instrument);
+                    userMap.put("genre", genre);
 
                     mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
