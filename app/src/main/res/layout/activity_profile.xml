@@ -52,8 +52,24 @@
         android:text="@string/instrument" />
 
     <TextView
-        android:id="@+id/profile_status"
+        android:id="@+id/profile_genre"
+        android:layout_width="179dp"
+        android:layout_height="41dp"
+        android:layout_above="@+id/profile_status"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginRight="122dp"
+        android:layout_marginBottom="21dp"
         android:gravity="center_horizontal"
+        android:text="@string/genre" />
+
+    <TextView
+        android:id="@+id/profile_status"
         android:layout_width="212dp"
         android:layout_height="49dp"
         android:layout_above="@+id/profile_totalFriends"
@@ -62,11 +78,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="104dp"
-        android:layout_marginLeft="104dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginRight="95dp"
-        android:layout_marginBottom="81dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginLeft="95dp"
+        android:layout_marginEnd="103dp"
+        android:layout_marginRight="103dp"
+        android:layout_marginBottom="29dp"
+        android:gravity="center_horizontal"
         android:text="@string/user_default_status"
         android:textSize="20sp" />
 

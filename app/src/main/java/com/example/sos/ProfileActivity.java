@@ -28,7 +28,7 @@ import java.util.Map;
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
-    private TextView mProfileName, mProfileStatus, mProfileFriendsCount, mProfileInstruments;
+    private TextView mProfileName, mProfileStatus, mProfileFriendsCount, mProfileInstruments, mProfileGenre;
     private Button mProfileSendReqBtn, mDeclineBtn;
 
     private DatabaseReference mUsersDatabase;
@@ -67,6 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileSendReqBtn = findViewById(R.id.profile_send_req_btn);
         mDeclineBtn = findViewById(R.id.profile_decline_btn);
         mProfileInstruments = findViewById(R.id.profile_instruments);
+        mProfileGenre = findViewById(R.id.profile_genre);
 
 
         mCurrent_state = "not_friends";
@@ -89,10 +90,12 @@ public class ProfileActivity extends AppCompatActivity {
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
                 String instrument = dataSnapshot.child("instrument").getValue().toString();
+                String genre = dataSnapshot.child("genre").getValue().toString();
 
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
                 mProfileInstruments.setText(instrument);
+                mProfileGenre.setText(genre);
 
                 Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
 

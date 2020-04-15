@@ -11,12 +11,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/settings_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_launcher_background"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,16 +37,28 @@
         android:id="@+id/settings_instrument"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-
         android:layout_marginTop="32dp"
         android:gravity="center|center_horizontal"
-        android:text="Instrument"
+        android:text="@string/instrument"
         app:layout_constraintBottom_toBottomOf="@+id/settings_status_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_status"
+        android:textSize="20sp"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/settings_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="46dp"
+        android:gravity="center_horizontal"
+        android:text="@string/genre"
+        app:layout_constraintBottom_toTopOf="@+id/setttings_image_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_instrument" />
 
     <TextView
         android:id="@+id/settings_status"
