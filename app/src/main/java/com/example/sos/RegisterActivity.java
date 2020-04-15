@@ -62,10 +62,10 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 String paswd = passwd.getText().toString();
                 String dispname = mdisplay_name.getText().toString();
                 ///all user instruments
-                String inst0 = spinner.getSelectedItem().toString();
-                String inst1 = spinner1.getSelectedItem().toString();
-                String inst2 = spinner2.getSelectedItem().toString();
-                String instruments = inst0 + "|" + inst1 + "|" + inst2;
+                String ins = spinner.getSelectedItem().toString();
+                String trum = spinner1.getSelectedItem().toString();
+                String ents = spinner2.getSelectedItem().toString();
+                String instruments = ins + "|" + trum + "|" + ents;
 
                 if (emailID.isEmpty() && paswd.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
