@@ -56,4 +56,49 @@
         <item>Vocals</item>
         <item>Xylophone</item>
     </string-array>
+    <string-array name="genres">
+        <item>Acapella</item>
+        <item>Acoustic</item>
+        <item>Avante Garde</item>
+        <item>Ballad</item>
+        <item>Beatboxing</item>
+        <item>Blues</item>
+        <item>Cabaret</item>
+        <item>Chillwave</item>
+        <item>Country</item>
+        <item>Deathcore</item>
+        <item>Djent</item>
+        <item>Dubstep</item>
+        <item>Electro</item>
+        <item>Emo</item>
+        <item>Folka</item>
+        <item>Funk</item>
+        <item>Gospel</item>
+        <item>Goth</item>
+        <item>Hardcore</item>
+        <item>Hip-Hop</item>
+        <item>House</item>
+        <item>Indie</item>
+        <item>Irish(Traditional)</item>
+        <item>Jazz</item>
+        <item>Liquid</item>
+        <item>Math Rock</item>
+        <item>Metalcore</item>
+        <item>Neo</item>
+        <item>Nu</item>
+        <item>Old-School Hip-Hop</item>
+        <item>Opera</item>
+        <item>Parody</item>
+        <item>Pop</item>
+        <item>Post</item>
+        <item>Power Metal</item>
+        <item>Progressive</item>
+        <item>Punk</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
 </resources>

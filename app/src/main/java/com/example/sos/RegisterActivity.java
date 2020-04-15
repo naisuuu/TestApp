@@ -33,16 +33,21 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private ProgressDialog mRegProgress;
     String instrument;
     private DatabaseReference mDatabase;
-    private Spinner spinner;
+    private Spinner spinner, spinner1, spinner2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         spinner = findViewById(R.id.spinner);
+        spinner1 = findViewById(R.id.spinner1);
+        spinner2 = findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(this, R.array.instruments, android.R.layout.simple_spinner_item);
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(sAdapter);
+        spinner1.setAdapter(sAdapter);
+        spinner2.setAdapter(sAdapter);
+
         firebaseAuth = FirebaseAuth.getInstance();
         mdisplay_name = findViewById(R.id.ETdisplayname);
         emailId = findViewById(R.id.ETemail);
@@ -56,7 +61,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 String emailID = emailId.getText().toString();
                 String paswd = passwd.getText().toString();
                 String dispname = mdisplay_name.getText().toString();
-                String inst = spinner.getSelectedItem().toString();
+                ///all user instruments
+                String inst0 = spinner.getSelectedItem().toString();
+                String inst1 = spinner1.getSelectedItem().toString();
+                String inst2 = spinner2.getSelectedItem().toString();
+                String instruments = inst0 + "|" + inst1 + "|" + inst2;
 
                 if (emailID.isEmpty() && paswd.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
@@ -65,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     mRegProgress.setMessage("Please wait while we create your account");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
-                    registerUser(dispname, emailID, paswd, inst);
+                    registerUser(dispname, emailID, paswd, instruments);
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
