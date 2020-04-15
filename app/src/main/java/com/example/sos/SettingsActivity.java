@@ -11,7 +11,6 @@
  import android.widget.Toast;
 
  import androidx.annotation.NonNull;
- import androidx.annotation.Nullable;
  import androidx.appcompat.app.AppCompatActivity;
 
  import com.google.android.gms.tasks.Continuation;
@@ -29,7 +28,6 @@
  import com.google.firebase.storage.UploadTask;
  import com.squareup.picasso.Picasso;
  import com.theartofdev.edmodo.cropper.CropImage;
- import com.theartofdev.edmodo.cropper.CropImageView;
 
  import java.io.ByteArrayOutputStream;
  import java.io.File;
@@ -41,8 +39,7 @@
 //hello
 
  public class SettingsActivity extends AppCompatActivity {
-     public static final int CAMERA_REQUEST = 2;
-     private static final int GALLERY_PICK = 1;
+     static final int GALLERY_PICK = 1;
      private DatabaseReference mUserDatabase;
      private FirebaseUser mCurrentUser;
      private CircleImageView mDisplayImage;
@@ -116,19 +113,23 @@
 
          mImageBtn.setOnClickListener(new View.OnClickListener() {
              @Override
-             public void onClick(View v) {
-                 CropImage.activity()
-                         .setGuidelines(CropImageView.Guidelines.ON)
-                         .start(SettingsActivity.this);
+             public void onClick(View view) {
+
+
+                 Intent galleryIntent = new Intent();
+                 galleryIntent.setType("image/*");
+                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+                 startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
              }
          });
      }
 
      @Override
-     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
          super.onActivityResult(requestCode, resultCode, data);
 
-         if (requestCode == GALLERY_PICK || requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+         if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
 
              Uri imageUri = data.getData();
 
@@ -136,16 +137,9 @@
                      .setAspectRatio(1, 1)
                      .setMinCropWindowSize(500, 500)
                      .start(this);
-             //Toast.makeText(SettingsActivity.this,imageUri,Toast.LENGTH_LONG).show(); Displays chosen data
-         } else {
-             Uri imageUri = data.getData();
 
-             CropImage.activity(imageUri)
-                     .setAspectRatio(1, 1)
-                     .setMinCropWindowSize(500, 500)
-                     .start(this);
-             //Toast.makeText(SettingsActivity.this,imageUri,Toast.LENGTH_LONG).show(); Displays chosen data
-             Toast.makeText(SettingsActivity.this, "Reached here", Toast.LENGTH_LONG).show();
+             //Toast.makeText(SettingsActivity.this, imageUri, Toast.LENGTH_LONG).show();
+
          }
          if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) { //makes sure result is taken from created cropactivity
              CropImage.ActivityResult result = CropImage.getActivityResult(data); //stores result as result

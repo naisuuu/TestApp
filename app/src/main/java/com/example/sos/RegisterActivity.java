@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 String ents = spinner2.getSelectedItem().toString();
                 String instruments = ins + "|" + trum + "|" + ents;
                 String genre = mGenre.getText().toString();
-                if (emailID.isEmpty() && paswd.isEmpty()) {
+                if (emailID.isEmpty() || paswd.isEmpty() || dispname.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
                 } else if (!(emailID.isEmpty() && paswd.isEmpty())) {
                     mRegProgress.setTitle("Registering User...");

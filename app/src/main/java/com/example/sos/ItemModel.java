@@ -6,6 +6,19 @@ public class ItemModel {
     public String status;
     public String thumb_image;
     public String instrument;
+    public String genre;
+
+    public ItemModel(String name, String image, String status, String thumb_image, String genre) {
+        this.name = name;
+        this.image = image;
+        this.status = status;
+        this.thumb_image = thumb_image;
+        this.genre = genre;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
 
     public String getInstrument() {
         return instrument;
@@ -19,11 +32,8 @@ public class ItemModel {
 
     }
 
-    public ItemModel(String name, String image, String status, String thumb_image) {
-        this.name = name;
-        this.image = image;
-        this.status = status;
-        this.thumb_image = thumb_image;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getName() {

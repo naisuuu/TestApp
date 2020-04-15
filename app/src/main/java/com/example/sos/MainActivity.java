@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 holder.setUserStatus(model.getStatus());
                 holder.setUserImage(model.getThumb_image(), getApplicationContext());
                 holder.setUserInstrument(model.getInstrument());
+                holder.setUserGenre(model.getGenre());
 
 
                 final String user_id = getRef(position).getKey();
@@ -334,6 +335,11 @@ public class MainActivity extends AppCompatActivity {
         public void setUserInstrument(String instrument) {
             TextView userInstrumentView = mView.findViewById(R.id.item_instrument);
             userInstrumentView.setText(instrument);
+        }
+
+        public void setUserGenre(String genre) {
+            TextView userGenreView = mView.findViewById(R.id.item_genre);
+            userGenreView.setText(genre);
         }
     }
 }
