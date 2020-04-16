@@ -1,0 +1,17 @@
+const token_id = result.val();
+
+const payload = {
+ notification: {
+  title: "Friend Request",
+  body: `${userName} has sent you request`,
+  icon: "default",
+  click_action : "com.example.sos_TARGET_NOTIFICATION"
+ },
+ data : {
+  from_user_id : from_user_id
+ }
+};
+
+return admin.messaging().sendToDevice(token_id,payload).then(response => {
+ return console.log('This was the notification feature');
+});

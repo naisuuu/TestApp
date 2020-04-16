@@ -7,11 +7,26 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     tools:context="com.example.sos.MainActivity">
-        <include
-            android:id="@+id/main_page_toolbar"
-            layout="@layout/app_bar_layout" />
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
 
+                <include
+                    android:id="@+id/main_page_toolbar"
+                    layout="@layout/app_bar_layout" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/main_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                </com.google.android.material.tabs.TabLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
         <com.yuyakaido.android.cardstackview.CardStackView
             android:id="@+id/card_stack_view"
             android:layout_width="0dp"
@@ -21,15 +36,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_page_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-    <!--Button
-        android:id="@+id/card_stack_rewind_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rewind"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /-->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/main_tabPager"
+            android:layout_width="411dp"
+
+            android:layout_height="681dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
