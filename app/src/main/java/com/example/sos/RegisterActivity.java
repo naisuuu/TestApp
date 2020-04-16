@@ -16,12 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
 
@@ -102,26 +104,40 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
                     mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
-                    String device_token = FirebaseInstanceId.getInstance().getToken();
-
-                    HashMap<String, String> userMap = new HashMap<>();
-                    userMap.put("name", display_name);
-                    userMap.put("status", "Hi there i'm using SoS chat app");
-                    userMap.put("image", "default");
-                    userMap.put("thumb_image", "default");
-                    userMap.put("instrument", instrument);
-                    userMap.put("genre", genre);
-
-                    mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    final String current_user_id = firebaseAuth.getCurrentUser().getUid();
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
                             if (task.isSuccessful()) {
-                                mRegProgress.setMessage("Successfully created account!");
-                                mRegProgress.dismiss();
-                                Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
-                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(mainIntent);
-                                finish();
+                                String token = task.getResult().getToken();
+                                HashMap<String, String> userMap = new HashMap<>();
+                                userMap.put("name", display_name);
+                                userMap.put("status", "Hi there i'm using SoS chat app");
+                                userMap.put("image", "default");
+                                userMap.put("thumb_image", "default");
+                                userMap.put("instrument", instrument);
+                                userMap.put("genre", genre);
+                                userMap.put("device_token", token);
+                                mDatabase.child(current_user_id).child("device_token").setValue(token).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(RegisterActivity.this, "Successful", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                                mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            mRegProgress.setMessage("Successfully created account!");
+                                            mRegProgress.dismiss();
+                                            Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(mainIntent);
+                                            finish();
+                                        }
+                                    }
+                                });
                             }
                         }
                     });

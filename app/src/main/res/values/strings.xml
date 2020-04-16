@@ -28,7 +28,7 @@
     <string name="rewind">Rewind</string>
     <string name="instrument">Instrument</string>
     <string name="genre">Genre…</string>
-    <string name="instrument">Instrument</string>
+
     <string-array name="instruments">
         <item></item>
         <item>Bagpipes</item>
