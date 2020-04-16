@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="friends_list" type="id" />
     <item name="user_single_online_icon" type="id" />
-
 </resources>

@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
 public class MenuActivity extends AppCompatActivity {
-
+    private DatabaseReference mUserRef;
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
 
@@ -30,7 +30,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private AdapterView.AdapterContextMenuInfo mSectionsPagerAdapter;
 
-    private DatabaseReference mUserRef;
 
     private TabLayout mTabLayout;
 

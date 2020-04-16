@@ -58,6 +58,9 @@
         <item>Vocals</item>
         <item>Xylophone</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--string-array name="genres"> we probably won't need this
         <item>Acapella</item>
         <item>Acoustic</item>

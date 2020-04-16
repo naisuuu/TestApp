@@ -25,15 +25,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -61,13 +65,22 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private Toolbar mToolbar;
-
+    private ViewPager mViewPager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private TabLayout mTablayout;
+    private DatabaseReference mUserRef;
+    private FirebaseAuth mAuth;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        if (mAuth.getCurrentUser() != null) {
 
+
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -148,25 +161,31 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("SOS");
 
-        /*Rewind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RewindAnimationSetting setting = new RewindAnimationSetting.Builder()
-                        .setDirection(Direction.Bottom)
-                        .setDuration(Duration.Normal.duration)
-                        .build();
-                manager.setRewindAnimationSetting(setting);
-                cardStackView.rewind();
-            }
-        });
 
-         */
+        mViewPager = findViewById(R.id.main_tabPager);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        mTablayout = findViewById(R.id.main_tabs);
+        mTablayout.setupWithViewPager(mViewPager);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+// Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        if (currentUser == null) {
+
+            sendToStart();
+
+        } else {
+
+            mUserRef.child("online").setValue("true");
+
+        }
 
         FirebaseRecyclerOptions<ItemModel> options =
                 new FirebaseRecyclerOptions.Builder<ItemModel>()
@@ -257,7 +276,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         super.onOptionsItemSelected(item);
 
+
         if(item.getItemId() == R.id.main_logout_btn){
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+            FirebaseAuth.getInstance().signOut();
             sendToStart();
         }
 

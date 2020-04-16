@@ -1,25 +1,56 @@
-'use strict'
- const functions = require('firebase-functions');
+'use-strict'
+
+const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-admin.initializeApp();
- exports.sendNotification = functions.database.ref('/notifications/{user_id}/{notification_id}').onWrite((change, context) => {
-const user_id = context.params.user_id;
-const notification_id = context.params.notification_id;
-console.log('Notification sent to: ',user_id);
+admin.initializeApp(functions.config().firebase);
 
-if(!context.data.val()){
-  return console.log('A notification has been deleted from the firebase: ',notification_id);
-}
+exports.sendNotification = functions.database.ref('/notifications/{user_id}/{notification_id}').onWrite((change, context) => {
 
-const payload = {
-  notification: {
+  /*
+   * You can store values as variables from the 'database.ref'
+    'user_id' and 'notification'
+   */
+
+   const user_id = context.params.user_id;
+   const notification_id = context.params.notification_id;
+
+   console.log('We have a notification to send to : ', context.params.user_id);
+   // if(!context.data.val()){
+   //  return console.log('A Notification has been deleted from the database: ',notification_id);
+   // }
+   const fromUser = admin.database().ref(`/notifications/${user_id}/${notification_id}`).once('value');
+   return fromUser.then(fromUserResult => {
+   const from_user_id = fromUserResult.val().from;
+
+    console.log('You have new  notification from :  ', from_user_id);
+
+    const userQuery = admin.database().ref(`/Users/${from_user_id}/name`).once('value');
+    const deviceToken = admin.database().ref('/Users/'+ user_id +'/device_token').once('value');
+
+
+return Promise.all([userQuery,deviceToken]).then(result => {
+
+  const userName = result[0].val();
+  const token_id = result[1].val();
+
+  const payload = {
+   notification: {
     title: "Friend Request",
-    body:"You've received a new Friend Request",
-    icon: "default"
-  }
-};
+    body: `${userName} has sent you request`,
+    icon: "default",
+    click_action : "com.example.sos_TARGET_NOTIFICATION"
+   },
+   data : {
+    from_user_id : from_user_id
+   }
+  };
 
-return admin.messaging().sendToDevice(/* Token ID */, payload).then(response =>{
-  console.log('This was the notification feature');
+  return admin.messaging().sendToDevice(token_id,payload).then(response => {
+   return console.log('Token Id:', token_id);
+  });
+
 });
- });
+
+   });
+
+});
