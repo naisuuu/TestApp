@@ -97,7 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
                 mProfileInstruments.setText(instrument);
                 mProfileGenre.setText(genre);
 
-                Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
+                Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage); /// come back for image :)
 
                 if (mCurrent_user.getUid().equals(user_id)) {
 

@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
     private CardStackLayoutManager manager;
     private CardStackAdapter adapter;
     private CardStackView cardStackView;
-    Button btnLogOut;
-    FirebaseAuth firebaseAuth;
+    private Button btnLogOut;
+    private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private Toolbar mToolbar;
     private ViewPager mViewPager;
