@@ -31,7 +31,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,12 +74,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        if (mAuth.getCurrentUser() != null) {
-
-
-            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -175,17 +168,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser == null) {
 
-            sendToStart();
 
-        } else {
-
-            mUserRef.child("online").setValue("true");
-
-        }
 
         FirebaseRecyclerOptions<ItemModel> options =
                 new FirebaseRecyclerOptions.Builder<ItemModel>()
