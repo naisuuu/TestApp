@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@drawable/background"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="com.example.sos.RegisterActivity">
@@ -16,7 +16,7 @@
         android:layout_marginBottom="40dp"
         android:gravity="center_horizontal"
         android:text="@string/create_account"
-        android:textColor="@color/design_default_color_on_secondary"
+        android:textColor="@color/design_default_color_surface"
         android:textSize="24sp" />
 
     <EditText
@@ -24,7 +24,9 @@
         android:layout_width="183dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:hint="@string/display_name" />
+        android:hint="@string/display_name"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -49,7 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:hint="@string/genre" />
+        android:hint="@string/genre"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <EditText
         android:id="@+id/ETemail"
@@ -58,7 +62,8 @@
         android:layout_margin="15dp"
         android:autofillHints=""
         android:hint="@string/email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColorHint="#FFFFFF" />
 
     <EditText
         android:id="@+id/ETpassword"
@@ -67,7 +72,8 @@
         android:layout_margin="15dp"
         android:autofillHints="Password"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColorHint="#FFFFFF" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -82,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="@string/already_have_an_account_sign_in_here"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="15sp" />
 
 
