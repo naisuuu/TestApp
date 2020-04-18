@@ -2,4 +2,5 @@
 <resources>
     <item name="friends_list" type="id" />
     <item name="user_single_online_icon" type="id" />
+    <item name="card_stack_view" type="id" />
 </resources>

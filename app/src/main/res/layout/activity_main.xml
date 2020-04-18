@@ -21,7 +21,7 @@
 
     <EditText
         android:id="@+id/ETdisplayname"
-        android:layout_width="183dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/display_name"
@@ -30,19 +30,22 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="175dp"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown" />
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="175dp"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown" />
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="175dp"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown" />
 
