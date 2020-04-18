@@ -85,7 +85,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
         mChatUser = getIntent().getStringExtra("user_id");
-        String userName = getIntent().getStringExtra("user_id");
+        String userName = getIntent().getStringExtra("user_name");
 
         ///getSupportActionBar().setTitle(userName);
 

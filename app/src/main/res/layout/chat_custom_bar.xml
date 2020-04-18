@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/custom_bar_image"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_alignParentTop="true"
-
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="15dp"
-        android:src="@android:drawable/sym_def_app_icon" />
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/default_avatar" />
 
     <TextView
         android:id="@+id/custom_bar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="17dp"
-        android:text="@string/display_name"
-        android:textColor="@color/design_default_color_on_secondary" />
+        android:text="Display Name"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/custom_bar_seen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/custom_bar_title"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="49dp"
-        android:text="last seen"
-        android:textColor="@color/design_default_color_on_secondary" />
+        android:text="Last Seen"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
 
 </RelativeLayout>
