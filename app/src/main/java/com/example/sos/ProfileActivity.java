@@ -28,7 +28,7 @@ import java.util.Map;
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
-    private TextView mProfileName, mProfileStatus, mProfileFriendsCount, mProfileInstruments, mProfileGenre;
+    private TextView mProfileName, mProfileStatus, mProfileFriendsCount;
     private Button mProfileSendReqBtn, mDeclineBtn;
 
     private DatabaseReference mUsersDatabase;
@@ -51,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         final String user_id = getIntent().getStringExtra("user_id");
+        Toast.makeText(getApplicationContext(), user_id, Toast.LENGTH_LONG).show(); //double check id
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -66,8 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileFriendsCount = findViewById(R.id.profile_totalFriends);
         mProfileSendReqBtn = findViewById(R.id.profile_send_req_btn);
         mDeclineBtn = findViewById(R.id.profile_decline_btn);
-        mProfileInstruments = findViewById(R.id.profile_instruments);
-        mProfileGenre = findViewById(R.id.profile_genre);
 
 
         mCurrent_state = "not_friends";
@@ -83,21 +82,19 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressDialog.show();
 
 
+
         mUsersDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 String display_name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
-                String instrument = dataSnapshot.child("instrument").getValue().toString();
-                String genre = dataSnapshot.child("genre").getValue().toString();
 
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
-                mProfileInstruments.setText(instrument);
-                mProfileGenre.setText(genre);
 
-                Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage); /// come back for image :)
+                Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
 
                 if (mCurrent_user.getUid().equals(user_id)) {
 
@@ -174,6 +171,7 @@ public class ProfileActivity extends AppCompatActivity {
                         }
 
 
+
                     }
 
                     @Override
@@ -232,10 +230,12 @@ public class ProfileActivity extends AppCompatActivity {
 
                             mProfileSendReqBtn.setEnabled(true);
 
+
                         }
                     });
 
                 }
+
 
                 // - -------------- CANCEL REQUEST STATE ------------
 
@@ -248,17 +248,24 @@ public class ProfileActivity extends AppCompatActivity {
                             mFriendReqDatabase.child(user_id).child(mCurrent_user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+
+
                                     mProfileSendReqBtn.setEnabled(true);
                                     mCurrent_state = "not_friends";
                                     mProfileSendReqBtn.setText("Send Friend Request");
 
                                     mDeclineBtn.setVisibility(View.INVISIBLE);
                                     mDeclineBtn.setEnabled(false);
+
+
                                 }
                             });
+
                         }
                     });
+
                 }
+
 
                 // ------------ REQ RECEIVED STATE ----------
 
@@ -294,10 +301,16 @@ public class ProfileActivity extends AppCompatActivity {
                                 String error = databaseError.getMessage();
 
                                 Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
+
+
                             }
+
                         }
                     });
+
                 }
+
+
                 // ------------ UNFRIENDS ---------
 
                 if (mCurrent_state.equals("friends")) {
@@ -320,14 +333,27 @@ public class ProfileActivity extends AppCompatActivity {
                                 mDeclineBtn.setEnabled(false);
 
                             } else {
+
                                 String error = databaseError.getMessage();
+
                                 Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
+
+
                             }
+
                             mProfileSendReqBtn.setEnabled(true);
+
                         }
                     });
+
                 }
+
+
             }
         });
+
+
     }
+
+
 }

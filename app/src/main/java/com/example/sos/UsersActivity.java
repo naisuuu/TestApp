@@ -43,7 +43,7 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-        button = findViewById(R.id.button);
+       /* button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +56,8 @@ public class UsersActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        */
+
         /// Code from video mToolbar = (Toolbar) findViewById(R.id.user_appBar);
         ///                 mUsersList = (RecyclerView) findViewById(R.id.users_list);
 
