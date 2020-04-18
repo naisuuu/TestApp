@@ -2,11 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Profile_image"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".SettingsActivity">
 
+    <Button
+        android:id="@+id/profile_decline_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/decline_friend_request"
+        android:textColor="@color/design_default_color_on_secondary" />
+
+    <Button
+        android:id="@+id/profile_send_req_btn"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="75dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/send_friend_request"
+        android:textColor="@color/design_default_color_on_secondary" />
 
     <RelativeLayout
         android:id="@+id/rellay1"
@@ -44,7 +65,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15sp"
             android:fontFamily="sans-serif-light"
-            android:text="@string/display_name"
+            android:text="@string/displayname"
             android:textColor="@color/places_text_white_alpha_26"
             android:textSize="32sp"
             tools:text="Display Name" />
@@ -58,6 +79,7 @@
         android:layout_below="@+id/rellay1"
         android:layout_height="wrap_content"
         android:orientation="horizontal"/>
+
 
     <RelativeLayout
         android:id="@+id/rellay2"
@@ -99,131 +121,172 @@
     </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/profile_send_req_btn"
-        android:layout_width="188dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="86dp"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/send_friend_request"
-        android:textColor="@color/design_default_color_on_secondary" />
+    <RelativeLayout
+        android:id="@+id/rellay3"
+        android:layout_width="match_parent"
+        android:paddingTop="30dp"
+        android:paddingBottom="5dp"
+        android:layout_below="@+id/rellay2"
+        android:gravity="center"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/profile_decline_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/decline_friend_request"
-        android:textColor="@color/design_default_color_on_secondary" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_person_black_24dp"
+                android:layout_marginLeft="70dp"/>
+
+            <TextView
+                android:id="@+id/profile_totalFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/total_friends"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="18sp" />
 
 
-    <TextView
-        android:id="@+id/profile_status"
-        android:layout_width="201dp"
-        android:layout_height="52dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="104dp"
-        android:layout_marginLeft="104dp"
-        android:layout_marginTop="335dp"
-        android:gravity="center_horizontal"
-        android:text="@string/user_default_status"
-        android:textColor="@color/places_text_black_alpha_87"
-        android:textSize="20dp"
-        tools:text="Hey there im new to this app .." />
 
-    <TextView
-        android:id="@+id/profile_totalFriends"
-        android:layout_width="204dp"
-        android:layout_height="33dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="106dp"
-        android:layout_marginLeft="106dp"
-        android:layout_marginTop="409dp"
-        android:gravity="center_horizontal"
-        android:text="@string/total_friends"
-        android:textColor="@color/places_text_black_alpha_87"
-        android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/profile_instruments"
-        android:layout_width="204dp"
-        android:layout_height="33dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="105dp"
-        android:layout_marginLeft="105dp"
-        android:layout_marginTop="512dp"
-        android:gravity="center_horizontal"
-        android:text="@string/instrument"
-        android:textColor="@color/places_text_black_alpha_87"
-        android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/profile_genre"
-        android:layout_width="204dp"
-        android:layout_height="33dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="102dp"
-        android:layout_marginLeft="102dp"
-        android:layout_marginTop="456dp"
-        android:gravity="center_horizontal"
-        android:text="@string/genre"
-        android:textColor="@color/places_text_black_alpha_87"
-        android:textSize="20dp"
-        tools:text="Genre" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="49dp"
-        android:layout_height="37dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="49dp"
-        android:layout_marginLeft="49dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginBottom="286dp"
-        android:src="@drawable/ic_person_black_24dp" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="43dp"
-        android:layout_height="34dp"
 
-        android:layout_alignParentLeft="true"
 
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="51dp"
-        android:layout_marginLeft="51dp"
-        android:layout_marginBottom="242dp"
-        android:src="@drawable/ic_music_note_black_24dp" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="45dp"
-        android:layout_height="31dp"
 
-        android:layout_alignParentLeft="true"
+    </RelativeLayout>
 
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginBottom="183dp"
-        app:srcCompat="@drawable/microphone" />
+
+    <RelativeLayout
+        android:id="@+id/rellay4"
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_below="@+id/rellay3"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_music_note_black_24dp"
+                android:layout_marginLeft="70dp"/>
+
+            <TextView
+                android:id="@+id/profile_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/genre"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="18sp" />
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/rellay"
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_below="@+id/rellay4"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/microphone"
+                android:layout_marginLeft="70dp"/>
+
+            <TextView
+                android:id="@+id/profile_instruments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/instrument"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="18sp" />
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rellay6"
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="100dp"
+        android:layout_below="@+id/rellay"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/profile_status"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text="@string/user_default_status"
+            android:textColor="@color/quantum_black_100"
+            android:textSize="18sp" />
+
+
+
+    </RelativeLayout>
+
+
 
 
 </RelativeLayout>
