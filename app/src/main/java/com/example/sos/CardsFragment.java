@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
+import com.yuyakaido.android.cardstackview.Direction;
+import com.yuyakaido.android.cardstackview.StackFrom;
+import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +72,18 @@ public class CardsFragment extends Fragment {
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mUsersDatabase.keepSynced(true);
 
-
-        mUsersList.setLayoutManager(new CardStackLayoutManager(getContext()));
+        CardStackLayoutManager manager = new CardStackLayoutManager(getContext());
+        manager.setStackFrom(StackFrom.None);
+        manager.setVisibleCount(3);
+        manager.setTranslationInterval(8.0f);
+        manager.setScaleInterval(0.95f);
+        manager.setSwipeThreshold(0.3f);
+        manager.setMaxDegree(20.0f);
+        manager.setDirections(Direction.FREEDOM);
+        manager.setCanScrollHorizontal(true);
+        manager.setSwipeableMethod(SwipeableMethod.Manual);
+        manager.setOverlayInterpolator(new LinearInterpolator());
+        mUsersList.setLayoutManager(manager);
 
         // Inflate the layout for this fragment
         return mMainView;

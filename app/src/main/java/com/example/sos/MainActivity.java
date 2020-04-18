@@ -19,7 +19,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 
@@ -72,12 +71,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         super.onOptionsItemSelected(item);
 
-
         if(item.getItemId() == R.id.main_logout_btn){
-            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+
+
             FirebaseAuth.getInstance().signOut();
             sendToStart();
+
         }
+
 
         if (item.getItemId() == R.id.main_settings_btn) {
 

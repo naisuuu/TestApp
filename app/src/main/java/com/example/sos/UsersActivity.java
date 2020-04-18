@@ -1,4 +1,4 @@
-/*package com.example.sos;
+package com.example.sos;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +43,7 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-        button = (Button)findViewById(R.id.button);
+        button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,4 +155,3 @@ public class UsersActivity extends AppCompatActivity {
 
 
 }
-*/
