@@ -27,7 +27,9 @@
             android:value="@string/map_key" />
 
         <activity android:name=".GoogleMapAPI" />
-        <activity android:name=".ChatActivity" />
+        <activity
+            android:name=".ChatActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".ProfileActivity" />
 
         <service android:name=".MyFirebaseMessagingService">

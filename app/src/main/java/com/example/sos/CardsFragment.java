@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,7 +125,6 @@ public class CardsFragment extends Fragment {
                     public void onClick(View v) {
                         Intent profileIntent = new Intent(getContext(), ProfileActivity.class);
                         profileIntent.putExtra("user_id", user_id);
-                        Log.d(user_id, "onClick: ");
                         startActivity(profileIntent);
                     }
                 });

@@ -86,9 +86,9 @@ public class FriendsFragment extends Fragment {
             protected void onBindViewHolder(@NonNull final FriendsViewHolder friendsViewHolder, int i, @NonNull Friends friends) {
                 friendsViewHolder.setDate(friends.getDate());
 
-                final String list_user_id = getRef(i).getKey();
+                final String user_id = getRef(i).getKey();
 
-                mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
+                mUsersDatabase.child(user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -122,7 +122,7 @@ public class FriendsFragment extends Fragment {
                                         if (i == 0) {
 
                                             Intent profileIntent = new Intent(getContext(), ProfileActivity.class);
-                                            profileIntent.putExtra("user_id", list_user_id);
+                                            profileIntent.putExtra("user_id", user_id);
                                             startActivity(profileIntent);
 
                                         }
@@ -130,7 +130,7 @@ public class FriendsFragment extends Fragment {
                                         if (i == 1) {
 
                                             Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-                                            chatIntent.putExtra("user_id", list_user_id);
+                                            chatIntent.putExtra("user_id", user_id);
                                             chatIntent.putExtra("user_name", userName);
                                             startActivity(chatIntent);
 

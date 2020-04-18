@@ -1,5 +1,15 @@
 package com.example.sos;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -7,20 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.media.Image;
-import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -75,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
 
-        mChatToolbar = (Toolbar) findViewById(R.id.chat_app_bar);
+        mChatToolbar = findViewById(R.id.chat_app_bar);
         setSupportActionBar(mChatToolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -100,17 +96,17 @@ public class ChatActivity extends AppCompatActivity {
 
         // -----------------Custom Action Bar Items -----------------------------------------------------
 
-        mTitleView = (TextView)findViewById(R.id.custom_bar_title);
-        mLastSeenView = (TextView)findViewById(R.id.custom_bar_seen);
-        mProfileImage = (CircleImageView)findViewById(R.id.custom_bar_image);
+        mTitleView = findViewById(R.id.custom_bar_title);
+        mLastSeenView = findViewById(R.id.custom_bar_seen);
+        mProfileImage = findViewById(R.id.custom_bar_image);
 
-        mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
-        mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
-        mChatMessageview = (EditText) findViewById(R.id.chat_message_view);
+        mChatAddBtn = findViewById(R.id.chat_add_btn);
+        mChatSendBtn = findViewById(R.id.chat_send_btn);
+        mChatMessageview = findViewById(R.id.chat_message_view);
 
         mAdpter = new MessageAdapter(messageList);
 
-        mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
+        mMessagesList = findViewById(R.id.messages_list);
         mLinearLayout = new LinearLayoutManager(this);
 
         mMessagesList.setHasFixedSize(true);
@@ -143,7 +139,7 @@ public class ChatActivity extends AppCompatActivity {
 
                             if(databaseError != null){
 
-                                Log.d("CHAT_LOG", databaseError.getMessage().toString());
+                                Log.d("CHAT_LOG", databaseError.getMessage());
 
                             }
 
@@ -244,7 +240,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     if(databaseError != null){
 
-                        Log.d("CHAT_LOG", databaseError.getMessage().toString());
+                        Log.d("CHAT_LOG", databaseError.getMessage());
 
 
                     }
