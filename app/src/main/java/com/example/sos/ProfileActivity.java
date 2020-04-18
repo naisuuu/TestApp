@@ -90,10 +90,11 @@ public class ProfileActivity extends AppCompatActivity {
                 String display_name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
-
+                String genre = dataSnapshot.child("genre").getValue().toString();
 
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
+                mProfileGenre.setText(genre);
 
                 Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
 
