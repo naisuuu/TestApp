@@ -45,6 +45,7 @@
      private CircleImageView mDisplayImage;
      private TextView mName;
      private TextView mInstrument;
+     private TextView mGenre;
      private TextView mStatus;
      private Button mStatusBtn;
      private Button mImageBtn;
@@ -66,6 +67,7 @@
          mStatus = findViewById(R.id.settings_status);
          mStatusBtn = findViewById(R.id.settings_status_btn);
          mImageBtn = findViewById(R.id.setttings_image_btn);
+         mGenre = findViewById(R.id.settings_genre);
 
          mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
          String current_uid = mCurrentUser.getUid();
@@ -83,10 +85,12 @@
                  String image = dataSnapshot.child("image").getValue().toString();
                  String status = dataSnapshot.child("status").getValue().toString();
                  String instrument = dataSnapshot.child("instrument").getValue().toString();
+                 String genre = dataSnapshot.child(("genre")).getValue().toString();
 
                  mName.setText(name);
                  mStatus.setText(status);
                  mInstrument.setText(instrument);
+                 mGenre.setText(genre);
 
                  if (!image.equals("default")) {
                      Picasso.get().load(image).into(mDisplayImage);

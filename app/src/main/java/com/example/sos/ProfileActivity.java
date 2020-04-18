@@ -29,7 +29,7 @@ import java.util.Map;
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
-    private TextView mProfileName, mProfileStatus, mProfileFriendsCount;
+    private TextView mProfileName, mProfileStatus, mProfileFriendsCount, mProfileGenre;
     private Button mProfileSendReqBtn, mDeclineBtn;
 
     private DatabaseReference mUsersDatabase;
@@ -50,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         final String user_id = getIntent().getStringExtra("user_id");
         Toast.makeText(getApplicationContext(), user_id, Toast.LENGTH_LONG).show(); //double check id
 
@@ -68,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileFriendsCount = findViewById(R.id.profile_totalFriends);
         mProfileSendReqBtn = findViewById(R.id.profile_send_req_btn);
         mDeclineBtn = findViewById(R.id.profile_decline_btn);
-
+        mProfileGenre = findViewById(R.id.profile_genre);
 
         mCurrent_state = "not_friends";
 
@@ -91,6 +90,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String display_name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
+
 
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
