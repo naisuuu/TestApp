@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="solidCircle">#13284a</color>
     <color name="circleBorder">#30FFFFFF</color>
+    <color name="barColor">#240b36</color>
 </resources>

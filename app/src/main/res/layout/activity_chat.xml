@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
-<include android:layout="@layout/app_bar_layout" android:id="@+id/chat_app_bar"/>
+<include android:layout="@layout/app_bar_layout"
+    android:id="@+id/chat_app_bar"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

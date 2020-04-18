@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@drawable/gradation_black"
+        android:background="@drawable/grad"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
+            android:fontFamily="sans-serif-light"
             android:textSize="26sp"
             android:textStyle="bold" />
 
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
+            android:fontFamily="sans-serif-light"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -54,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
+            android:fontFamily="sans-serif-light"
             android:textSize="20sp"
             android:textStyle="bold" />
 
