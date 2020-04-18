@@ -73,6 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_arrow_back_black_24dp" />
+
+
     </FrameLayout>
 
     <FrameLayout
