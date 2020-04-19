@@ -132,8 +132,8 @@
 
             <TextView
                 android:id="@+id/settings_genre"
-                android:layout_width="263dp"
-                android:layout_height="39dp"
+                android:layout_width="276dp"
+                android:layout_height="68dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/genre"
@@ -224,7 +224,7 @@
                 android:layout_width="371dp"
                 android:layout_height="62dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:text="hi_there_this_is_a_custom_text"
                 android:textColor="@color/quantum_black_100"
                 android:textSize="18sp"
