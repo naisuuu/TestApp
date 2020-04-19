@@ -23,7 +23,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/barColor"
-                    >
+                    app:tabTextColor="@color/places_text_white_alpha_26">
 
                 </com.google.android.material.tabs.TabLayout>
 
@@ -31,9 +31,10 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/main_tabPager"
-            android:layout_width="411dp"
+            android:layout_width="match_parent"
 
-            android:layout_height="681dp"
+            android:layout_height="619dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
