@@ -106,48 +106,13 @@
         android:paddingBottom="5dp"
         android:layout_below="@+id/rellay2"
         android:gravity="center"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            >
-
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_person_black_24dp"
-                android:layout_marginLeft="70dp"/>
-
-            <TextView
-                android:id="@id/profile_totalFriends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/total_friends"
-                android:textColor="@color/quantum_black_100"
-                android:textSize="18sp" />
-
-
-
-
-
-
-
-
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
+        android:layout_height="wrap_content"/>
 
 
     <RelativeLayout
         android:id="@+id/rellay4"
         android:layout_width="match_parent"
-        android:paddingTop="5dp"
+        android:paddingTop="20dp"
         android:paddingBottom="5dp"
         android:layout_below="@+id/rellay3"
         android:gravity="center"
@@ -167,8 +132,8 @@
 
             <TextView
                 android:id="@+id/settings_genre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="263dp"
+                android:layout_height="39dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/genre"
@@ -194,7 +159,7 @@
     <RelativeLayout
         android:id="@+id/rellay"
         android:layout_width="match_parent"
-        android:paddingTop="5dp"
+        android:paddingTop="20dp"
         android:paddingBottom="5dp"
         android:layout_below="@+id/rellay4"
         android:gravity="center"
@@ -214,8 +179,8 @@
 
             <TextView
                 android:id="@+id/settings_instrument"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="264dp"
+                android:layout_height="41dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/instrument"
@@ -256,8 +221,8 @@
             <TextView
 
                 android:id="@+id/settings_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="397dp"
+                android:layout_height="110dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="hi_there_this_is_a_custom_text"

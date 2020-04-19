@@ -64,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileImage = findViewById(R.id.profile_image);
         mProfileName = findViewById(R.id.profile_displayName);
         mProfileStatus = findViewById(R.id.profile_status);
-        mProfileFriendsCount = findViewById(R.id.profile_totalFriends);
+
         mProfileSendReqBtn = findViewById(R.id.profile_send_req_btn);
         mDeclineBtn = findViewById(R.id.profile_decline_btn);
         mProfileGenre = findViewById(R.id.profile_genre);
