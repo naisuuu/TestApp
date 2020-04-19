@@ -112,7 +112,7 @@
     <RelativeLayout
         android:id="@+id/rellay4"
         android:layout_width="match_parent"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
         android:paddingBottom="5dp"
         android:layout_below="@+id/rellay3"
         android:gravity="center"
@@ -159,7 +159,7 @@
     <RelativeLayout
         android:id="@+id/rellay"
         android:layout_width="match_parent"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
         android:paddingBottom="5dp"
         android:layout_below="@+id/rellay4"
         android:gravity="center"
@@ -221,8 +221,8 @@
             <TextView
 
                 android:id="@+id/settings_status"
-                android:layout_width="397dp"
-                android:layout_height="110dp"
+                android:layout_width="371dp"
+                android:layout_height="62dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="hi_there_this_is_a_custom_text"
