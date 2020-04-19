@@ -150,4 +150,3 @@ public class GoogleMapAPI extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 }
-

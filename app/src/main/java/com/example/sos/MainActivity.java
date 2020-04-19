@@ -133,13 +133,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(settingsIntent);
 
         }
-        if(item.getItemId()==R.id.main_chat_btn) {
-
-            Intent settingsIntent = new Intent(MainActivity.this, ChatActivity.class);
-            startActivity(settingsIntent);
-        }
-
-
         return true;
     }
 
