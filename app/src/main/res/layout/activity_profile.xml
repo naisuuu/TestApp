@@ -32,7 +32,7 @@
     <RelativeLayout
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
-        android:background="@drawable/grad"
+        android:background="@drawable/gradient2"
         android:paddingBottom="30dp"
         android:layout_height="wrap_content">
 
