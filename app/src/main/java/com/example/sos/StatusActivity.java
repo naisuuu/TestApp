@@ -1,22 +1,19 @@
 package com.example.sos;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.os.Handler;
-import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class StatusActivity extends AppCompatActivity {
     private Toolbar mToolbar;
-    private TextInputEditText mStatus;
+    private TextInputEditText mStatus, mInstrument, mGenre;
     private Button mSavebtn;
 
     //Firebase
@@ -51,11 +48,19 @@ public class StatusActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String status_value = getIntent().getStringExtra("status_value");
+        String instruments_value = getIntent().getStringExtra("instruments_value");
+        String genres_value = getIntent().getStringExtra("genres_value");
         //Progress
         mProgress = new ProgressDialog(this);
 
         mStatus = findViewById(R.id.status_input);
+        mInstrument = findViewById(R.id.instruments_input);
+        mGenre = findViewById(R.id.genre_input);
+
+
         mStatus.setText(status_value);
+        mInstrument.setText(instruments_value);
+        mGenre.setText(genres_value);
 
         mSavebtn = findViewById(R.id.status_savebutton);
         mSavebtn.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +76,8 @@ public class StatusActivity extends AppCompatActivity {
                            //Adds a delay so users can see dialog bar
 
                 String status = mStatus.getText().toString();
+                String instrument = mInstrument.getText().toString();
+                String genre = mGenre.getText().toString();
                 mStatusDatabase.child("status").setValue(status).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -84,6 +91,38 @@ public class StatusActivity extends AppCompatActivity {
                             }, 3000);
                         } else {
                             Toast.makeText(getApplicationContext(),"There was an error in saving changes", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                mStatusDatabase.child("instrument").setValue(instrument).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mProgress.dismiss();
+                                }
+                            }, 3000);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "There was an error in saving changes", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                mStatusDatabase.child("genre").setValue(genre).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mProgress.dismiss();
+                                }
+                            }, 3000);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "There was an error in saving changes", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

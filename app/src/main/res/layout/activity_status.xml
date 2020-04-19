@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,20 +20,51 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/status_input"
         android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/status_appBar"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="false"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:hint="Your status" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/instruments_input"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status_appBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Your instrument(s)" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/genre_input"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status_appBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="20dp"
+        android:hint="Your genre(s)" />
 
     <Button
         android:id="@+id/status_savebutton"
@@ -42,6 +72,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="655dp"
         android:text="save changes" />
 </RelativeLayout>

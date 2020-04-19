@@ -15,14 +15,31 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                CardsFragment cardsFragment = new CardsFragment();
-                return cardsFragment;
-            case 1:
                 ChatsFragment chatsFragment = new ChatsFragment();
                 return chatsFragment;
+            case 1:
+                CardsFragment cardsFragment = new CardsFragment();
+                return cardsFragment;
             case 2:
                 FriendsFragment friendsFragment = new FriendsFragment();
                 return friendsFragment;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public CharSequence getPageTitle(final int position) {
+        switch (position) {
+            case 0:
+                String Userstitle = "FIX";
+                return Userstitle;
+            case 1:
+                String Cardstitle = "Find Users";
+                return Cardstitle;
+            case 2:
+                String Friendstitle = "Friends";
+                return Friendstitle;
             default:
                 return null;
         }

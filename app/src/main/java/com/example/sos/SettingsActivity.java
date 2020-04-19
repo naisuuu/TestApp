@@ -109,8 +109,15 @@
              public void onClick(View v) {
 
                  String status_value = mStatus.getText().toString();
+                 String instruments_value = mInstrument.getText().toString();
+                 String genres_value = mGenre.getText().toString();
+
+
                  Intent status_intent = new Intent(SettingsActivity.this, StatusActivity.class);
                  status_intent.putExtra("status_value", status_value);
+                 status_intent.putExtra("instruments_value", instruments_value);
+                 status_intent.putExtra("genres_value", genres_value);
+
                  startActivity(status_intent);
              }
          });
