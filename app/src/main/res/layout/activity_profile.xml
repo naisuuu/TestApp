@@ -154,8 +154,8 @@
 
             <TextView
                 android:id="@+id/profile_genre"
-                android:layout_width="283dp"
-                android:layout_height="68dp"
+                android:layout_width="269dp"
+                android:layout_height="49dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/genre"
@@ -225,27 +225,41 @@
 
     <RelativeLayout
         android:id="@+id/rellay6"
-        android:layout_width="425dp"
-        android:layout_height="253dp"
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_below="@+id/rellay"
         android:gravity="center"
-        android:paddingTop="5dp"
-        android:paddingBottom="100dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:orientation="horizontal"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            >
 
-        <TextView
-            android:id="@+id/profile_status"
-            android:layout_width="398dp"
-            android:layout_height="118dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/user_default_status"
-            android:textColor="@color/quantum_black_100"
-            android:textSize="18sp" />
+
+            <TextView
+
+                android:id="@+id/settings_status"
+                android:layout_width="375dp"
+                android:layout_height="95dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="hi_there_this_is_a_custom_text"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="18sp"
+                tools:text="Hey there im new to this app .." />
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
 
 
     </RelativeLayout>
