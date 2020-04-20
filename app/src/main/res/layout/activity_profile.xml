@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
@@ -142,15 +141,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:layout_height="wrap_content"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_music_note_black_24dp"
-                android:layout_marginLeft="70dp"/>
+                android:layout_marginLeft="70dp"
+                android:src="@drawable/ic_music_note_black_24dp" />
 
             <TextView
                 android:id="@+id/profile_genre"
@@ -161,13 +159,6 @@
                 android:text="@string/genre"
                 android:textColor="@color/quantum_black_100"
                 android:textSize="18sp" />
-
-
-
-
-
-
-
 
 
         </LinearLayout>
@@ -238,14 +229,14 @@
             android:layout_height="wrap_content"
             >
 
-
             <TextView
 
-                android:id="@+id/settings_status"
+                android:id="@+id/profile_status"
                 android:layout_width="375dp"
                 android:layout_height="95dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:text="hi_there_this_is_a_custom_text"
                 android:textColor="@color/quantum_black_100"
                 android:textSize="18sp"
@@ -253,18 +244,10 @@
 
 
 
-
-
-
-
-
-
         </LinearLayout>
 
 
     </RelativeLayout>
-
-
 
 
 </RelativeLayout>
