@@ -134,7 +134,7 @@
         android:id="@+id/rellay4"
         android:layout_width="match_parent"
         android:paddingTop="30dp"
-        android:paddingBottom="5dp"
+
         android:layout_below="@+id/rellay3"
         android:gravity="center"
         android:layout_height="wrap_content">
@@ -173,7 +173,7 @@
         android:id="@+id/rellay"
         android:layout_width="match_parent"
         android:paddingTop="30dp"
-        android:paddingBottom="5dp"
+
         android:layout_below="@+id/rellay4"
         android:gravity="center"
         android:layout_height="wrap_content">
