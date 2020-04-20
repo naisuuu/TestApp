@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:spinnerMode="dropdown"
-
+        android:textColor="#FFFFFF"
         android:theme="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
     <Spinner
@@ -42,14 +42,16 @@
         android:layout_width="match_parent"
         android:layout_margin="15dp"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:textColor="#FFFFFF" />
 
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="match_parent"
         android:layout_margin="15dp"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/ETgenre"
@@ -67,6 +69,7 @@
         android:layout_margin="15dp"
         android:autofillHints=""
         android:hint="@string/email"
+        android:textColor="#FFFFFF"
         android:inputType="textEmailAddress"
         android:textColorHint="#FFFFFF" />
 
@@ -78,6 +81,7 @@
         android:autofillHints="Password"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF" />
 
     <Button
